@@ -1,0 +1,26 @@
+{
+  "name": "supermarket-backend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "node src/index.js",
+    "dev": "env-cmd ./config/dev.env nodemon src/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tundereuben/supermarket-backend.git"
+  },
+  "author": "Tunde Ogunjimi",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/tundereuben/supermarket-backend/issues"
+  },
+  "homepage": "https://github.com/tundereuben/supermarket-backend#readme",
+  "dependencies": {
+    "env-cmd": "^8.0.2",
+    "express": "^4.17.1",
+    "mongoose": "^6.0.11",
+    "nodemon": "^2.0.13"
+  }
+}
