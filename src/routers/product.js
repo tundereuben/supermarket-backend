@@ -80,8 +80,8 @@ router.patch('/products/:id', async (req, res) => {
 
 router.delete('/products/:id', async (req, res) => {
     try {
-        // const task = await Task.findByIdAndDelete(req.params.id)
-        const product = await Product.findOneAndDelete({ id: req.params.id });
+        const product = await Product.findByIdAndDelete(req.params.id);
+        // const product = await Product.findOneAndDelete({ id: req.params.id });
 
         if (!product) {
             return res.status(404).send()
