@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/tundereuben/supermarket-backend#readme",
   "dependencies": {
+    "cors": "^2.8.5",
     "env-cmd": "^8.0.2",
     "express": "^4.17.1",
     "mongoose": "^6.0.11",
