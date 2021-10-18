@@ -14,13 +14,15 @@ router.post('/products', async (req, res) => {
 });
 
 router.get('/products', async (req, res) => {
-    const match = {};
+    const match = {}; // search query
     if (req.query.category) match.category = req.query.category;
     if (req.query.subCategory) match.subCategory = req.query.subCategory;
     if (req.query.name) match.name = req.query.name;
     if (req.query.display) match.display = req.query.display;
 
-    const products = await Product.find(match);
+    const limit = parseInt(req.query.limit);
+    const skip = parseInt(req.query.skip);
+    const products = await Product.find(match).limit(limit).skip(skip);
 
     try {
         if (!products) {
@@ -31,6 +33,7 @@ router.get('/products', async (req, res) => {
         res.status(500)
     }
 });
+
 
 router.get('/products/:id', async (req, res) => {
     const _id = req.params.id;
