@@ -19,7 +19,7 @@ const productSchema = new mongoose.Schema({
     imageUrl: {
         type: String,
         trim: true,
-        default: 'assets/images'
+        default: 'assets/images/'
     },
     price: {
        type: Number,
