@@ -19,7 +19,7 @@ const productSchema = new mongoose.Schema({
     imageUrl: {
         type: String,
         trim: true,
-        default: 'image_url'
+        default: 'assets/images'
     },
     price: {
        type: Number,
@@ -28,6 +28,10 @@ const productSchema = new mongoose.Schema({
     display: {
        type: Boolean,
         default: true
+    },
+    promo: {
+       type: Boolean,
+        default: false
     }
 }, {
     timestamps: true
