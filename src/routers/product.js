@@ -19,6 +19,7 @@ router.get('/products', async (req, res) => {
     if (req.query.subCategory) match.subCategory = req.query.subCategory;
     if (req.query.name) match.name = req.query.name;
     if (req.query.display) match.display = req.query.display;
+    if (req.query.promo) match.promo = req.query.promo;
 
     const limit = parseInt(req.query.limit) || 1000;
     const skip = parseInt(req.query.skip) || 0;
