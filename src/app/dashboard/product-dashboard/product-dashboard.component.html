@@ -1,0 +1,99 @@
+
+<!-- Start Trending Product Area -->
+<section class="trending-product section" style="margin-top: 12px;">
+  <div class="container">
+
+    <form [formGroup]="searchForm">
+      <div class="row g-3 align-items-center">
+        <div class="col-auto">
+          <input formControlName="name" type="text" placeholder="Product Name" class="form-control" aria-describedby="passwordHelpInline">
+        </div>
+        <div class="col-auto">
+          <select formControlName="category" id="" class="form-control">
+            <option value="">Select category</option>
+            <option value="food cupboard">Food Cupboard</option>
+            <option value="">---- -----</option>
+            <option value="">---- -----</option>
+            <option value="">---- -----</option>
+          </select>
+        </div>
+        <div class="col-auto">
+          <select formControlName="subCategory" id="" class="form-control">
+            <option value="">Select Subcategory</option>
+            <option value="oil">oil</option>
+            <option value="">---- -----</option>
+            <option value="">---- -----</option>
+            <option value="">---- -----</option>
+          </select>
+        </div>
+        <div class="col-auto">
+          <select formControlName="category" id="" class="form-control">
+            <option value="">Display</option>
+            <option value="true">True</option>
+            <option value="false">False</option>
+          </select>
+        </div>
+        <div class="col-auto">
+          <button (click)="search()" class="btn btn-success">Search Products</button>
+        </div>
+      </div>
+    </form>
+
+    <hr>
+
+    <table class="table">
+      <thead>
+      <tr>
+        <th scope="col">Product Name</th>
+        <th scope="col">Category</th>
+        <th scope="col">SubCategory</th>
+<!--        <th scope="col">Image URL</th>-->
+        <th scope="col">Display</th>
+        <th scope="col">Price</th>
+        <th scope="col">Options</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let product of products">
+        <th scope="row">
+          <img src="../../../{{ product.imageUrl }}" alt="" height="50px">
+          {{ product.name | uppercase }}
+        </th>
+        <td>{{ product.category }}</td>
+        <td>{{ product.subCategory }}</td>
+<!--        <td>{{ product.imageUrl }}</td>-->
+        <td>{{ product.display }}</td>
+        <td>{{ product.price}}</td>
+        <td>
+          <button type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#editModal">
+            E
+          </button>
+          <a class="btn btn-sm btn-danger">D</a>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="col-md-2" style="margin: auto">
+    <nav aria-label="Page navigation example">
+      <ul class="pagination">
+        <li class="page-item">
+          <a class="page-link" href="#" aria-label="Previous">
+            <span aria-hidden="true">&laquo;</span>
+          </a>
+        </li>
+        <li class="page-item"><a class="page-link" href="#">1</a></li>
+        <li class="page-item"><a class="page-link" href="#">2</a></li>
+        <li class="page-item"><a class="page-link" href="#">3</a></li>
+        <li class="page-item">
+          <a class="page-link" href="#" aria-label="Next">
+            <span aria-hidden="true">&raquo;</span>
+          </a>
+        </li>
+      </ul>
+    </nav>
+  </div>
+</section>
+
+<!-- End Trending Product Area -->
+
