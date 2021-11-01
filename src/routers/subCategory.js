@@ -34,5 +34,20 @@ router.get('/sub-category', async (req, res) => {
         res.status(500)
     }
 });
+
+router.delete('/sub-category/:id', async (req, res) => {
+    try {
+        const subCategory = await SubCategory.findByIdAndDelete(req.params.id);
+        // const product = await Product.findOneAndDelete({ id: req.params.id });
+
+        if (!subCategory) {
+            return res.status(404).send()
+        }
+        res.send(subCategory)
+    } catch (e) {
+        res.status(500).send()
+    }
+});
+
 module.exports = router;
 

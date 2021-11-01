@@ -53,6 +53,24 @@ router.get('/products/:id', async (req, res) => {
     }
 });
 
+router.get('/search', async (req, res) => {
+
+    const search = new RegExp(req.query.search, 'i');
+    
+    const products = await Product.find({ 
+        $or: [ { name: search }, { category: search }, { subCategory: search } ] 
+    });
+
+    try {
+        if (!products) {
+            res.status(404).send('No products found!')
+        }
+        res.send(products)
+    } catch (e) {
+        res.status(500)
+    }
+});
+
 router.patch('/products/:id', async (req, res) => {
     const updates = Object.keys(req.body);
     const allowedUpdates = ['name', 'category', 'subCategory', 'imageUrl', 'price', 'display', 'promo'];
