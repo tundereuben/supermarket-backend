@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {HttpClient, HttpParams} from '@angular/common/http';
+import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
 import {Product} from '../models/Product';
 import {Observable} from 'rxjs';
 
@@ -21,6 +21,7 @@ export class ProductService {
       .append('skip', `${skip}`);
 
     const baseUrl = 'https://lucent-supermarket-api.herokuapp.com/products';
+    // const baseUrl = 'http://localhost:3000/sub-category';
     return this.http.get<Product[]>(baseUrl, { params });
   }
 
@@ -34,8 +35,8 @@ export class ProductService {
       // .append('limit', `${limit}`)
       // .append('skip', `${skip}`);
 
-    // const baseUrl = 'https://lucent-supermarket-api.herokuapp.com/search';
-    const baseUrl = 'http://localhost:3000/search';
+    const baseUrl = 'https://lucent-supermarket-api.herokuapp.com/search';
+    // const baseUrl = 'http://localhost:3000/search';
     return this.http.get<Product[]>(baseUrl, { params });
   }
 
@@ -45,17 +46,20 @@ export class ProductService {
       .append('promo', `${promo}`)
       .append('limit', `${limit}`);
     const baseUrl = 'https://lucent-supermarket-api.herokuapp.com/products';
+    // const baseUrl = 'http://localhost:3000/sub-category';
     return this.http.get<Product[]>(baseUrl, { params });
   }
 
   getSubCategories(subCategoryName: string): Observable<Product[]> {
     const params = new HttpParams().set('subCategory', subCategoryName);
+    // const baseUrl = 'http://localhost:3000/sub-category';
     const baseUrl = 'https://lucent-supermarket-api.herokuapp.com/products';
     return this.http.get<Product[]>(baseUrl, { params });
   }
 
   deleteProduct(product: Product): Observable<Product> {
     const baseUrl = 'https://lucent-supermarket-api.herokuapp.com/products';
+    // const baseUrl = 'http://localhost:3000/products';
     const url = baseUrl + '/' + product._id;
     return this.http.delete<Product>(url);
   }
@@ -65,6 +69,24 @@ export class ProductService {
     // const baseUrl = 'http://localhost:3000/sub-category';
     const baseUrl = 'https://lucent-supermarket-api.herokuapp.com/sub-category';
     return this.http.get<any[]>(baseUrl, { params });
+  }
+
+  addProduct(product: Product): Observable<Product> {
+    // const baseUrl = 'http://localhost:3000/products';
+    const baseUrl = 'https://lucent-supermarket-api.herokuapp.com/products';
+    const headers: HttpHeaders = new HttpHeaders({
+      'Content-Type': 'application/json;charset=utf-8',
+    });
+    return this.http.post<Product>(baseUrl, JSON.stringify(product), { headers });
+  }
+
+  editProduct(product: Product, id: string): Observable<Product> {
+    // const baseUrl = `http://localhost:3000/products/${id}`;
+    const baseUrl = `https://lucent-supermarket-api.herokuapp.com/products/${id}`;
+    const headers: HttpHeaders = new HttpHeaders({
+      'Content-Type': 'application/json;charset=utf-8',
+    });
+    return this.http.patch<Product>(baseUrl, JSON.stringify(product), { headers });
   }
 
 }

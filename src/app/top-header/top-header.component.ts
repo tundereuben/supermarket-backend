@@ -3,7 +3,7 @@ import {FormBuilder, FormGroup} from '@angular/forms';
 import {ProductService} from '../services/product.service';
 import {Observable} from 'rxjs';
 import {SubCategory} from '../models/SubCategory';
-import {Router} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 
 @Component({
   selector: 'app-top-header',
@@ -18,10 +18,15 @@ export class TopHeaderComponent implements OnInit {
     private fb: FormBuilder,
     private productService: ProductService,
     private router: Router,
+    private activatedRoute: ActivatedRoute
   ) { }
 
   ngOnInit() {
     this.createSearchForm();
+    this.activatedRoute.data
+      .subscribe(data => {
+        console.log(`activatedRoute Data >>>`, data.link);
+      });
   }
 
   createSearchForm() {

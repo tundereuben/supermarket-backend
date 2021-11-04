@@ -5,6 +5,7 @@ export interface Product {
   imageUrl: string;
   name: string;
   price: number;
+  promo: boolean;
   subCategory: string;
   updatedAt: string;
   __v: number;

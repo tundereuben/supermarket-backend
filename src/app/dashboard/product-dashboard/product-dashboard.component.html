@@ -1,74 +1,58 @@
 
 <!-- Start Trending Product Area -->
 <section class="trending-product section" style="margin-top: 12px;">
-  <div class="container">
-
-    <form [formGroup]="searchForm">
-      <div class="row g-3 align-items-center">
-        <div class="col-auto">
-          <input formControlName="name" type="text" placeholder="Product Name" class="form-control" aria-describedby="passwordHelpInline">
-        </div>
-        <div class="col-auto">
-          <select formControlName="category" id="" class="form-control">
-            <option value="">Select category</option>
-            <option value="food cupboard">Food Cupboard</option>
-            <option value="">---- -----</option>
-            <option value="">---- -----</option>
-            <option value="">---- -----</option>
-          </select>
-        </div>
-        <div class="col-auto">
-          <select formControlName="subCategory" id="" class="form-control">
-            <option value="">Select Subcategory</option>
-            <option value="oil">oil</option>
-            <option value="">---- -----</option>
-            <option value="">---- -----</option>
-            <option value="">---- -----</option>
-          </select>
-        </div>
-        <div class="col-auto">
-          <select formControlName="category" id="" class="form-control">
-            <option value="">Display</option>
-            <option value="true">True</option>
-            <option value="false">False</option>
-          </select>
-        </div>
-        <div class="col-auto">
-          <button (click)="search()" class="btn btn-success">Search Products</button>
-        </div>
+  <div class="container text-center">
+    <div class="row">
+      <div class="col-md-8">
+        <form [formGroup]="searchForm">
+          <div class="navbar-search search-style-5">
+            <div class="search-input">
+              <input type="text" placeholder="Search" formControlName="keyword">
+            </div>
+            <div class="search-btn">
+              <button (click)="search()"><i class="lni lni-search-alt"></i></button>
+            </div>
+          </div>
+        </form>
       </div>
-    </form>
+      <div class="col-md-4">
+        <button type="button" class="btn btn-sm btn-primary mr-2" data-bs-toggle="modal" data-bs-target="#editModal">
+          {{ buttonLabel }}
+        </button>
+      </div>
+    </div>
 
-    <hr>
 
-    <table class="table">
+    <table class="table text-sm-start">
       <thead>
       <tr>
         <th scope="col">Product Name</th>
         <th scope="col">Category</th>
         <th scope="col">SubCategory</th>
-<!--        <th scope="col">Image URL</th>-->
+        <th scope="col">Image URL</th>
         <th scope="col">Display</th>
         <th scope="col">Price</th>
+        <th scope="col">Promo</th>
         <th scope="col">Options</th>
       </tr>
       </thead>
       <tbody>
       <tr *ngFor="let product of products">
         <th scope="row">
-          <img src="../../../{{ product.imageUrl }}" alt="" height="50px">
-          {{ product.name | uppercase }}
+          <img src="../../../{{ product.imageUrl }}" alt="" height="50px" width="50px">
+          <br> {{ product.name | titlecase }}
         </th>
-        <td>{{ product.category }}</td>
-        <td>{{ product.subCategory }}</td>
-<!--        <td>{{ product.imageUrl }}</td>-->
+        <td>{{ product.category | titlecase }}</td>
+        <td>{{ product.subCategory | titlecase }}</td>
+        <td>{{ product.imageUrl }}</td>
         <td>{{ product.display }}</td>
-        <td>{{ product.price}}</td>
+        <td>{{ product.price }}</td>
+        <td>{{ product.promo }}</td>
         <td>
-          <button type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#editModal">
-            E
+          <button (click)="editProduct(product)" type="button" class="btn btn-sm btn-primary mr-2" data-bs-toggle="modal" data-bs-target="#editModal">
+            <i class="lni lni-pencil"></i>
           </button>
-          <a class="btn btn-sm btn-danger">D</a>
+          <a (click)="deleteProduct(product)" class="btn btn-sm btn-danger"><i class="lni lni-trash-can"></i></a>
         </td>
       </tr>
       </tbody>
@@ -93,7 +77,64 @@
       </ul>
     </nav>
   </div>
-</section>
 
+  <!-- Modal -->
+  <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form [formGroup]="newProductForm">
+            <div class="row g-3 align-items-center">
+              <div class="col-auto col-md-12">
+                <input formControlName="name" type="text" placeholder="Product Name" class="form-control" aria-describedby="">
+              </div>
+              <div class="col-auto col-md-6">
+                <select formControlName="category" id="category" class="form-control">
+                  <!--<option value=null selected>Select category</option>-->
+                  <option *ngFor="let category of categories;" value="{{ category }}">{{ category }}</option>
+                </select>
+              </div>
+              <div class="col-auto col-md-6">
+                <select formControlName="subCategory" id="sub-category" class="form-control">
+                  <option value="">Select Subcategory</option>
+                  <option value="oil">oil</option>
+                </select>
+              </div>
+              <div class="col-auto col-md-12">
+                <input formControlName="imageUrl" type="text" placeholder="Image URL" class="form-control" aria-describedby="">
+              </div>
+              <div class="col-auto col-md-4">
+                <input formControlName="price" type="number" placeholder="Price" class="form-control" aria-describedby="">
+              </div>
+              <div class="col-auto col-md-4">
+                <select formControlName="display" id="display" class="form-control">
+                  <option value=null selected>Display</option>
+                  <option value=true>True</option>
+                  <option value=false>False</option>
+                </select>
+              </div>
+              <div class="col-auto col-md-4">
+                <select formControlName="promo" id="promo" class="form-control">
+                  <option value=null>Promo</option>
+                  <option value=true>True</option>
+                  <option value=false>False</option>
+                </select>
+              </div>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button (click)="addProduct()" type="button" class="btn btn-success">{{ buttonLabel }}</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</section>
 <!-- End Trending Product Area -->
 
