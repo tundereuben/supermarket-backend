@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
 import {Product} from '../models/Product';
 import {Observable} from 'rxjs';
+import {Category} from '../models/Category';
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +13,7 @@ export class ProductService {
     private http: HttpClient
   ) { }
 
-  getProducts(
+  /*getProducts(
     limit: number = 1000,
     skip: number = 0
     ): Observable<Product[]> {
@@ -23,15 +24,15 @@ export class ProductService {
     const baseUrl = 'https://lucent-supermarket-api.herokuapp.com/products';
     // const baseUrl = 'http://localhost:3000/sub-category';
     return this.http.get<Product[]>(baseUrl, { params });
-  }
+  }*/
 
   searchProducts(
     search: string,
-    // limit: number = 10,
-    // skip: number = 0
+    limit: number = 10,
+    skip: number = 0
   ): Observable<Product[]> {
     const params = new HttpParams()
-      .append('search', `${search}`);
+      .append('search', `${search}`)
       // .append('limit', `${limit}`)
       // .append('skip', `${skip}`);
 
@@ -50,18 +51,16 @@ export class ProductService {
     return this.http.get<Product[]>(baseUrl, { params });
   }
 
+  getCategories(): Observable<Category[]> {
+    const baseUrl = 'http://localhost:3000/category';
+    return this.http.get<Category[]>(baseUrl);
+  }
+
   getSubCategories(subCategoryName: string): Observable<Product[]> {
     const params = new HttpParams().set('subCategory', subCategoryName);
     // const baseUrl = 'http://localhost:3000/sub-category';
     const baseUrl = 'https://lucent-supermarket-api.herokuapp.com/products';
     return this.http.get<Product[]>(baseUrl, { params });
-  }
-
-  deleteProduct(product: Product): Observable<Product> {
-    const baseUrl = 'https://lucent-supermarket-api.herokuapp.com/products';
-    // const baseUrl = 'http://localhost:3000/products';
-    const url = baseUrl + '/' + product._id;
-    return this.http.delete<Product>(url);
   }
 
   getSubCategoryNames(category: string): Observable<any[]> {
@@ -87,6 +86,13 @@ export class ProductService {
       'Content-Type': 'application/json;charset=utf-8',
     });
     return this.http.patch<Product>(baseUrl, JSON.stringify(product), { headers });
+  }
+
+  deleteProduct(product: Product): Observable<Product> {
+    const baseUrl = 'https://lucent-supermarket-api.herokuapp.com/products';
+    // const baseUrl = 'http://localhost:3000/products';
+    const url = baseUrl + '/' + product._id;
+    return this.http.delete<Product>(url);
   }
 
 }

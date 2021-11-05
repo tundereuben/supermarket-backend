@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import {Product} from '../../models/Product';
 import {ProductService} from '../../services/product.service';
 import {FormBuilder, FormGroup} from '@angular/forms';
+import {Category} from '../../models/Category';
+import {SubCategory} from '../../models/SubCategory';
 
 @Component({
   selector: 'app-product-dashboard',
@@ -16,11 +18,14 @@ export class ProductDashboardComponent implements OnInit {
   public newProductForm: FormGroup;
   public searchForm: FormGroup;
 
+  public page = 1;
+  public pageSize = 20;
+
   public buttonLabel = 'Add Product';
   public shouldEditProduct: boolean;
   public productToEdit: Product;
-  public categories: any[];
-  public subCategories: any[];
+  public categories: Category[];
+  public subCategories: SubCategory[];
 
   constructor(
     private service: ProductService,
@@ -35,11 +40,18 @@ export class ProductDashboardComponent implements OnInit {
   }
 
   getCategories() {
-    this.categories = ['a', 'b', 'c'];
+    this.service.getCategories()
+      .subscribe(data => {
+        this.categories = data;
+      });
   }
 
   getSubCategories(category: string) {
-    this.subCategories = ['e', 'f', 'g'];
+    this.service.getSubCategoryNames(category)
+      .subscribe(data => {
+        this.subCategories = data;
+        console.log(`subcategories >>>`, this.subCategories);
+      });
   }
 
   createSearchForm() {
@@ -49,7 +61,7 @@ export class ProductDashboardComponent implements OnInit {
   }
 
   getProducts() {
-    this.buttonLabel = 'Add Products';
+    this.buttonLabel = 'Add Product';
     this.shouldEditProduct = false;
     this.service.searchProducts('')
       .subscribe(data => {
@@ -82,7 +94,7 @@ export class ProductDashboardComponent implements OnInit {
       this.service.addProduct(dataToPost)
         .subscribe(data => {
           this.getProducts();
-          console.log('data to DB >>>', data);
+          this.newProductForm.patchValue({});
         });
     } else {
       this.service.editProduct(dataToPost, this.productToEdit._id)
@@ -98,8 +110,15 @@ export class ProductDashboardComponent implements OnInit {
     this.shouldEditProduct = true;
     this.productToEdit = product;
     this.buttonLabel = 'Edit Product';
+    this.getSubCategories(product.category);
     this.newProductForm.patchValue({
-      ...this.productToEdit
+      name: product.name,
+      category: product.category,
+      subCategory: product.subCategory,
+      display: product.display,
+      imageUrl: product.imageUrl,
+      price: product.price,
+      promo: product.promo
     });
     console.log(this.productToEdit);
   }

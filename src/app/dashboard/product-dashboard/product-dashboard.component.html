@@ -2,22 +2,22 @@
 <!-- Start Trending Product Area -->
 <section class="trending-product section" style="margin-top: 12px;">
   <div class="container text-center">
-    <div class="row">
-      <div class="col-md-8">
+    <div class="row mb-3">
+      <div class="col-md-10">
         <form [formGroup]="searchForm">
-          <div class="navbar-search search-style-5">
-            <div class="search-input">
-              <input type="text" placeholder="Search" formControlName="keyword">
+          <div class="row">
+            <div class="col-md-9">
+              <input formControlName="keyword" type="text" class="form-control" id="keyword" placeholder="Find product by Name, Category or Sub-category">
             </div>
-            <div class="search-btn">
-              <button (click)="search()"><i class="lni lni-search-alt"></i></button>
+            <div class="col-md-3">
+              <button class="form-control btn btn-success" (click)="search()">Search</button>
             </div>
           </div>
         </form>
       </div>
-      <div class="col-md-4">
-        <button type="button" class="btn btn-sm btn-primary mr-2" data-bs-toggle="modal" data-bs-target="#editModal">
-          {{ buttonLabel }}
+      <div class="col-md-2">
+        <button type="button" class="form-control btn btn-primary" data-bs-toggle="modal" data-bs-target="#editModal">
+          Add Product
         </button>
       </div>
     </div>
@@ -26,6 +26,7 @@
     <table class="table text-sm-start">
       <thead>
       <tr>
+        <th scope="col">Image</th>
         <th scope="col">Product Name</th>
         <th scope="col">Category</th>
         <th scope="col">SubCategory</th>
@@ -37,11 +38,11 @@
       </tr>
       </thead>
       <tbody>
-      <tr *ngFor="let product of products">
+      <tr *ngFor="let product of products | slice: (page-1) * pageSize : page * pageSize">
         <th scope="row">
           <img src="../../../{{ product.imageUrl }}" alt="" height="50px" width="50px">
-          <br> {{ product.name | titlecase }}
         </th>
+        <th>{{ product.name | titlecase }}</th>
         <td>{{ product.category | titlecase }}</td>
         <td>{{ product.subCategory | titlecase }}</td>
         <td>{{ product.imageUrl }}</td>
@@ -58,59 +59,61 @@
       </tbody>
     </table>
   </div>
-  <div class="col-md-2" style="margin: auto">
-    <nav aria-label="Page navigation example">
-      <ul class="pagination">
-        <li class="page-item">
-          <a class="page-link" href="#" aria-label="Previous">
-            <span aria-hidden="true">&laquo;</span>
-          </a>
-        </li>
-        <li class="page-item"><a class="page-link" href="#">1</a></li>
-        <li class="page-item"><a class="page-link" href="#">2</a></li>
-        <li class="page-item"><a class="page-link" href="#">3</a></li>
-        <li class="page-item">
-          <a class="page-link" href="#" aria-label="Next">
-            <span aria-hidden="true">&raquo;</span>
-          </a>
-        </li>
-      </ul>
-    </nav>
-  </div>
+
+  <!--pagination-->
+  <ngb-pagination
+    [(page)]="page"
+    [pageSize]="pageSize"
+    [collectionSize]="products.length">
+  </ngb-pagination>
+  <!--end pagination-->
 
   <!-- Modal -->
   <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+          <h5 class="modal-title" id="exampleModalLabel">{{ buttonLabel }}</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
           <form [formGroup]="newProductForm">
             <div class="row g-3 align-items-center">
-              <div class="col-auto col-md-12">
-                <input formControlName="name" type="text" placeholder="Product Name" class="form-control" aria-describedby="">
+              <div class="col-auto col-md-12 mb-1">
+                <label class="form-label" for="name">Product Name</label>
+                <input formControlName="name" id="name" type="text" class="form-control" aria-describedby="">
               </div>
               <div class="col-auto col-md-6">
-                <select formControlName="category" id="category" class="form-control">
-                  <!--<option value=null selected>Select category</option>-->
-                  <option *ngFor="let category of categories;" value="{{ category }}">{{ category }}</option>
+                <label class="form-label" for="category">Category</label>
+                <select formControlName="category" id="category" class="form-control" (change)="getSubCategories($event.target.value)"
+                >
+                  <option
+                    *ngFor="let category of categories;"
+                    value="{{ category.name }}">
+                    {{ category.name | titlecase }}
+                  </option>
                 </select>
               </div>
               <div class="col-auto col-md-6">
+                <label class="form-label" for="sub-category">Subcategory</label>
                 <select formControlName="subCategory" id="sub-category" class="form-control">
-                  <option value="">Select Subcategory</option>
-                  <option value="oil">oil</option>
+                  <option
+                    *ngFor="let sub of subCategories;"
+                    value="{{ sub.name }}">
+                    {{ sub.name | titlecase }}
+                  </option>
                 </select>
               </div>
               <div class="col-auto col-md-12">
-                <input formControlName="imageUrl" type="text" placeholder="Image URL" class="form-control" aria-describedby="">
+                <label class="form-label" for="imageUrl">Image URL</label>
+                <input formControlName="imageUrl" type="text" id="imageUrl" class="form-control" aria-describedby="">
               </div>
               <div class="col-auto col-md-4">
-                <input formControlName="price" type="number" placeholder="Price" class="form-control" aria-describedby="">
+                <label class="form-label" for="price">Subcategory</label>
+                <input formControlName="price" type="number" id="Price" class="form-control" aria-describedby="">
               </div>
               <div class="col-auto col-md-4">
+                <label class="form-label" for="display">Subcategory</label>
                 <select formControlName="display" id="display" class="form-control">
                   <option value=null selected>Display</option>
                   <option value=true>True</option>
@@ -118,6 +121,7 @@
                 </select>
               </div>
               <div class="col-auto col-md-4">
+                <label class="form-label" for="promo">Subcategory</label>
                 <select formControlName="promo" id="promo" class="form-control">
                   <option value=null>Promo</option>
                   <option value=true>True</option>
