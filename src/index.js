@@ -4,6 +4,7 @@ require('./db/mongoose');
 
 const productRouter = require('./routers/product');
 const subCategoryRouter = require('./routers/subCategory');
+const categoryRouter = require('./routers/category');
 
 const app = express();
 const port = process.env.PORT;
@@ -14,6 +15,7 @@ app.use(cors({
 }));
 
 app.use(productRouter);
+app.use(categoryRouter)
 app.use(subCategoryRouter);
 
 app.listen(port, () => {

@@ -1,37 +1,38 @@
 const express = require('express');
+const Category = require('../models/category');
 const SubCategory = require('../models/subCategory');
 const router = new express.Router();
 
-router.post('/sub-category', async (req, res) => {
-    const subCategory = new SubCategory(req.body);
+router.post('/category', async (req, res) => {
+    const category = new Category(req.body);
 
     try {
-        await subCategory.save();
-        res.status(201).send(subCategory)
+        await category.save();
+        res.status(201).send(category)
     } catch (e) {
         res.status(400).send(e)
     }
 });
 
-router.get('/sub-category', async (req, res) => {
-    const match = {}; // search query
-    if (req.query.category) match.category = req.query.category;
+router.get('/category', async (req, res) => {
+    // const match = {}; 
+    // if (req.query.category) match.category = req.query.category;
 
     const limit = parseInt(req.query.limit) || 1000;
     const skip = parseInt(req.query.skip) || 0;
-    const subCategories = await SubCategory.find(match).limit(limit).skip(skip);
+    const categories = await Category.find().limit(limit).skip(skip);
 
     try {
-        if (!subCategories) {
+        if (!categories) {
             res.status(404).send('No products found!')
         }
-        res.send(subCategories)
+        res.send(categories)
     } catch (e) {
         res.status(500)
     }
 });
 
-router.patch('/sub-category/:id', async (req, res) => {
+router.patch('/category/:id', async (req, res) => {
     const updates = Object.keys(req.body);
     const allowedUpdates = ['name', 'category'];
     const isValidOperation = updates.every((update) => allowedUpdates.includes(update));
@@ -42,30 +43,30 @@ router.patch('/sub-category/:id', async (req, res) => {
 
     try {
         const _id = req.params.id;
-        const subcategory = await SubCategory.findById(_id);
+        const category = await Category.findById(_id);
 
-        if (!subcategory) {
+        if (!category) {
             return res.status(404).send();
         }
-        updates.forEach((update) => subcategory[update] = req.body[update]);
+        updates.forEach((update) => category[update] = req.body[update]);
 
-        await subcategory.save();
+        await category.save();
 
-        res.send(subcategory);
+        res.send(category);
     } catch (e) {
         res.status(400).send();
     }
 });
 
-router.delete('/sub-category/:id', async (req, res) => {
+router.delete('/category/:id', async (req, res) => {
     try {
-        const subCategory = await SubCategory.findByIdAndDelete(req.params.id);
+        const category = await Category.findByIdAndDelete(req.params.id);
         // const product = await Product.findOneAndDelete({ id: req.params.id });
 
-        if (!subCategory) {
+        if (!category) {
             return res.status(404).send()
         }
-        res.send(subCategory)
+        res.send(category)
     } catch (e) {
         res.status(500).send()
     }
