@@ -17,7 +17,7 @@ export class BreakfastCerealsComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.items$ = this.service.getSubCategories('Breakfast Cereals');
+    this.items$ = this.service.getSubCategories('breakfast cereals');
   }
 
 }
