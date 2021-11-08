@@ -1,0 +1,42 @@
+<div class="container">
+  <table class="table lead">
+    <thead>
+    <tr>
+      <th scope="col"></th>
+      <th scope="col">Product Name</th>
+      <th scope="col">Quantity</th>
+      <th scope="col">Subtotal</th>
+      <th scope="col">Remove</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let tempCartItem of cartItems">
+      <th scope="row">
+        <img src="{{ tempCartItem.imageUrl }}" alt="" style="width: 100px"></th>
+      <td>{{ tempCartItem.name | titlecase}}</td>
+      <td>{{ tempCartItem.quantity }}</td>
+      <td>
+        {{ tempCartItem.quantity * tempCartItem.unitPrice | currency: 'N' }}
+      </td>
+      <td>x</td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="container">
+  <table class="lead">
+    <tr>
+      <td>Grand Total: </td>
+      <td>{{ totalQuantity }}</td>
+    </tr>
+    <tr>
+      <td>Shipping: </td>
+      <td>Free</td>
+    </tr>
+    <tr>
+      <td>You Pay: </td>
+      <td>{{ totalPrice | currency: 'N ' }}</td>
+    </tr>
+  </table>
+</div>

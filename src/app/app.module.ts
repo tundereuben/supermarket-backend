@@ -91,6 +91,11 @@ import { ToiletAndCarcareComponent } from './household-items/toilet-and-carcare/
 import { CategoryHomeComponent } from './category-home/category-home.component';
 import { SearchComponent } from './search/search.component';
 import {NgbPaginationModule} from '@ng-bootstrap/ng-bootstrap';
+import { SingleProductComponent } from './single-product/single-product.component';
+import { SubCategoryComponent } from './sub-category/sub-category.component';
+import { CartStatusComponent } from './cart-status/cart-status.component';
+import { CartItemComponent } from './cart-item/cart-item.component';
+import { CartDetailsComponent } from './cart-details/cart-details.component';
 
 @NgModule({
   declarations: [
@@ -178,7 +183,12 @@ import {NgbPaginationModule} from '@ng-bootstrap/ng-bootstrap';
     HouseholdItemsComponent,
     ToiletAndCarcareComponent,
     CategoryHomeComponent,
-    SearchComponent
+    SearchComponent,
+    SingleProductComponent,
+    SubCategoryComponent,
+    CartStatusComponent,
+    CartItemComponent,
+    CartDetailsComponent
   ],
   imports: [
     BrowserModule,

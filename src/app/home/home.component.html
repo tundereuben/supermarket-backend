@@ -98,13 +98,13 @@
             <div class="product-image">
               <img src="../..{{ item.imageUrl }}" alt="{{ item.imageUrl }}" >
               <div class="button">
-                <a href="product-details.html" class="btn"><i class="lni lni-cart"></i> Add to Cart</a>
+                <a (click)="addToCart(item)" href="javascript:void(0)" class="btn"><i class="lni lni-cart"></i> Add to Cart</a>
               </div>
             </div>
             <div class="product-info">
               <span class="category">{{ category.name | titlecase }}</span>
               <h4 class="title">
-                <a href="product-grids.html">{{ item.name | titlecase }}</a>
+                <a (click)="gotoProduct(item)" href="javascript:void(0)">{{ item.name | titlecase }}</a>
               </h4>
               <!--<ul class="review">
                 <li><i class="lni lni-star-filled"></i></li>

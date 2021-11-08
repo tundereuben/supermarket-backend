@@ -70,6 +70,11 @@ export class ProductService {
     return this.http.get<any[]>(baseUrl, { params });
   }
 
+  getProduct(id: string): Observable<Product> {
+    const baseUrl = `https://lucent-supermarket-api.herokuapp.com/products/${id}`;
+    return this.http.get<Product>(baseUrl);
+  }
+
   addProduct(product: Product): Observable<Product> {
     // const baseUrl = 'http://localhost:3000/products';
     const baseUrl = 'https://lucent-supermarket-api.herokuapp.com/products';

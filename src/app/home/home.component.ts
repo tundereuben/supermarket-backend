@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import {Product} from '../models/Product';
 import {ProductService} from '../services/product.service';
+import {Router} from '@angular/router';
+import {CartService} from '../services/cart.service';
+import {CartItem} from '../common/cart-item';
 
 @Component({
   selector: 'app-home',
@@ -12,13 +15,15 @@ export class HomeComponent implements OnInit {
   public categories: any[];
 
   constructor(
-    private service: ProductService
+    private productService: ProductService,
+    private router: Router,
+    private cartService: CartService
   ) { }
 
   ngOnInit() {
     this.categories = [
       {
-        name: 'fruit and vegetable',
+        name: 'fruits and vegetables',
         products: []
       },
       {
@@ -36,12 +41,22 @@ export class HomeComponent implements OnInit {
     ];
 
     this.categories.forEach((category, i) => {
-      this.service.getAllCategories(category.name, true, 4)
+      this.productService.getAllCategories(category.name, true, 4)
         .subscribe(data => {
           category.products = data;
-          console.log(category.products);
+          console.log(category);
         });
     });
+  }
+
+  addToCart(product: Product) {
+    console.log(`Adding to cart: ${product.name}, ${product.price}`);
+    const cartItem = new CartItem(product);
+    this.cartService.addToCart(cartItem);
+  }
+
+  gotoProduct(product: Product) {
+    this.router.navigate([`product-details/${product._id}`]);
   }
 
 }

@@ -86,6 +86,9 @@ import {SoupComponent} from './restaurant-at-home/soup/soup.component';
 import {LaundryAndCarcareComponent} from './household-items/laundry-and-carcare/laundry-and-carcare.component';
 import {CategoryHomeComponent} from './category-home/category-home.component';
 import {SearchComponent} from './search/search.component';
+import {SingleProductComponent} from './single-product/single-product.component';
+import {SubCategoryComponent} from './sub-category/sub-category.component';
+import {CartDetailsComponent} from './cart-details/cart-details.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -178,6 +181,10 @@ const routes: Routes = [
   { path: 'restaurant-at-home/snacks', component: SnacksComponent },
   { path: 'restaurant-at-home/soup', component: SoupComponent },
   { path: 'restaurant-at-home/street-food', component: StreetFoodComponent },
+
+  { path: 'product-details/:id', component: SingleProductComponent },
+  { path: 'sub-category/:name', component: SubCategoryComponent },
+  { path: 'cart-details', component: CartDetailsComponent },
 
   { path: 'search', component: SearchComponent },
 
