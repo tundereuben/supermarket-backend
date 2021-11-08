@@ -1,9 +1,10 @@
-<div class="container">
+<div class="container" *ngIf="cartItems.length>0">
   <table class="table lead">
     <thead>
     <tr>
       <th scope="col"></th>
       <th scope="col">Product Name</th>
+      <th scope="col">Unit Price</th>
       <th scope="col">Quantity</th>
       <th scope="col">Subtotal</th>
       <th scope="col">Remove</th>
@@ -14,29 +15,47 @@
       <th scope="row">
         <img src="{{ tempCartItem.imageUrl }}" alt="" style="width: 100px"></th>
       <td>{{ tempCartItem.name | titlecase}}</td>
-      <td>{{ tempCartItem.quantity }}</td>
+      <td>{{ tempCartItem.unitPrice | currency: 'N' }}</td>
+      <td>
+        <button (click)="decrementQuantity(tempCartItem)" class="btn btn-primary btn-sm">
+          <i class="lni lni-minus"></i>
+        </button>
+        {{ tempCartItem.quantity }}
+        <button (click)="incrementQuantity(tempCartItem)" class="btn btn-primary btn-sm">
+          <i class="lni lni-plus"></i>
+        </button>
+      </td>
       <td>
         {{ tempCartItem.quantity * tempCartItem.unitPrice | currency: 'N' }}
       </td>
-      <td>x</td>
+      <td>
+        <button (click)="remove(tempCartItem)" class="btn btn-danger btn-sm">
+          <i class="lni lni-trash-can"></i>
+        </button>
+      </td>
     </tr>
     </tbody>
   </table>
+
+  <div class="container">
+    <table class="lead">
+      <tr>
+        <td>Grand Total: </td>
+        <td>{{ totalQuantity }}</td>
+      </tr>
+      <tr>
+        <td>Shipping: </td>
+        <td>Free</td>
+      </tr>
+      <tr>
+        <td>You Pay: </td>
+        <td>{{ totalPrice | currency: 'N ' }}</td>
+      </tr>
+    </table>
+  </div>
+
 </div>
 
-<div class="container">
-  <table class="lead">
-    <tr>
-      <td>Grand Total: </td>
-      <td>{{ totalQuantity }}</td>
-    </tr>
-    <tr>
-      <td>Shipping: </td>
-      <td>Free</td>
-    </tr>
-    <tr>
-      <td>You Pay: </td>
-      <td>{{ totalPrice | currency: 'N ' }}</td>
-    </tr>
-  </table>
+<div *ngIf="cartItems.length===0" class="container my-2">
+  <p class="lead alert alert-warning">Your shopping cart is empty</p>
 </div>
