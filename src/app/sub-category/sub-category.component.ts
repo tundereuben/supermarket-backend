@@ -14,6 +14,21 @@ export class SubCategoryComponent implements OnInit {
   public items$: Observable<Product[]>;
   public subCategoryName: string;
 
+  private subCategoryURL = [
+    { name: 'culinary herbs', url: 'culinary-herbs'},
+    { name: 'spices', url: 'spices'},
+    { name: 'fresh fruit', url: 'fresh-fruits'},
+    { name: 'fresh vegetables', url: 'fresh-vegetables'},
+    { name: 'frozen fruits and vegetables', url: 'frozen-fruits-and-vegetables'},
+    { name: 'fresh poultry meat', url: 'fresh-poultry-meat'},
+    { name: 'fresh cow meat', url: 'fresh-cow-meat'},
+    { name: 'fresh goat and ram meat', url: 'fresh-goat-and-ram-meat'},
+    { name: 'frozen meat', url: 'frozen-meat'},
+    { name: 'fresh pork', url: 'pork'},
+    { name: 'spices', url: 'spices'},
+    { name: 'spices', url: 'spices'},
+  ];
+
   constructor(
     private service: ProductService,
     private activatedRoute: ActivatedRoute,
@@ -23,14 +38,20 @@ export class SubCategoryComponent implements OnInit {
   ngOnInit() {
     this.activatedRoute.params
       .subscribe(params => {
-        this.subCategoryName = params.name;
-        console.log(this.subCategoryName);
-        this.items$ = this.service.getSubCategories(params.name);
+        this.subCategoryName = this.getUrl(params.name);
+        this.items$ = this.service.getSubCategories(this.subCategoryName);
       });
+  }
+
+  getUrl(subCategory) {
+    const subCategoryIndex = this.subCategoryURL.findIndex(sub => sub.url === subCategory);
+    console.log(subCategoryIndex, '>>>');
+    return this.subCategoryURL[subCategoryIndex].name;
   }
 
   gotoProduct(product: Product) {
     this.router.navigate([`product-details/${product._id}`]);
   }
+
 
 }
