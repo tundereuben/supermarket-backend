@@ -73,7 +73,7 @@ router.get('/search', async (req, res) => {
 
 router.patch('/products/:id', async (req, res) => {
     const updates = Object.keys(req.body);
-    const allowedUpdates = ['name', 'category', 'subCategory', 'imageUrl', 'price', 'display', 'promo'];
+    const allowedUpdates = ['name', 'category', 'subCategory', 'imageUrl', 'price', 'display', 'promo', 'desc'];
     const isValidOperation = updates.every((update) => allowedUpdates.includes(update));
 
     if(!isValidOperation) {

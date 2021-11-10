@@ -32,7 +32,10 @@ const productSchema = new mongoose.Schema({
     promo: {
        type: Boolean,
         default: false
-    }
+    },
+    desc: {
+        type: String
+     }
 }, {
     timestamps: true
 });
