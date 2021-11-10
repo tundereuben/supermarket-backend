@@ -58,6 +58,15 @@
           </a>
         </td>
       </tr>
+      <tr>
+        <!--pagination-->
+        <ngb-pagination
+          [(page)]="page"
+          [pageSize]="pageSize"
+          [collectionSize]="products.length">
+        </ngb-pagination>
+        <!--end pagination-->
+      </tr>
       </tbody>
     </table>
   </div>
@@ -69,79 +78,80 @@
     [collectionSize]="products.length">
   </ngb-pagination>
   <!--end pagination-->
+</section>
+<!-- End Trending Product Area -->
 
-  <!-- Modal -->
-  <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">{{ buttonLabel }}</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-          <form [formGroup]="newProductForm">
-            <div class="row g-3 align-items-center">
-              <div class="col-auto col-md-12 mb-1">
-                <label class="form-label" for="name">Product Name</label>
-                <input formControlName="name" id="name" type="text" class="form-control" aria-describedby="">
-              </div>
-              <div class="col-auto col-md-6">
-                <label class="form-label" for="category">Category</label>
-                <select formControlName="category" id="category" class="form-control" (change)="getSubCategories($event.target.value)"
-                >
-                  <option
-                    *ngFor="let category of categories;"
-                    value="{{ category.name }}">
-                    {{ category.name | titlecase }}
-                  </option>
-                </select>
-              </div>
-              <div class="col-auto col-md-6">
-                <label class="form-label" for="sub-category">Subcategory</label>
-                <select formControlName="subCategory" id="sub-category" class="form-control">
-                  <option
-                    *ngFor="let sub of subCategories;"
-                    value="{{ sub.name }}">
-                    {{ sub.name | titlecase }}
-                  </option>
-                </select>
-              </div>
-              <div class="col-auto col-md-12">
-                <label class="form-label" for="imageUrl">Image URL</label>
-                <input formControlName="imageUrl" type="text" id="imageUrl" class="form-control" aria-describedby="">
-              </div>
-              <div class="col-auto col-md-4">
-                <label class="form-label" for="price">Subcategory</label>
-                <input formControlName="price" type="number" id="Price" class="form-control" aria-describedby="">
-              </div>
-              <div class="col-auto col-md-4">
-                <label class="form-label" for="display">Display</label>
-                <select formControlName="display" id="display" class="form-control">
-                  <option value=null selected>Display</option>
-                  <option value=true>True</option>
-                  <option value=false>False</option>
-                </select>
-              </div>
-              <div class="col-auto col-md-4">
-                <label class="form-label" for="promo">Promo</label>
-                <select formControlName="promo" id="promo" class="form-control">
-                  <option value=null>Promo</option>
-                  <option value=true>True</option>
-                  <option value=false>False</option>
-                </select>
-              </div>
+<!-- Add Product Modal -->
+<div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">{{ buttonLabel }}</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="newProductForm">
+          <div class="row g-3 align-items-center">
+            <div class="col-auto col-md-12 mb-1">
+              <label class="form-label" for="name">Product Name</label>
+              <input formControlName="name" id="name" type="text" class="form-control" aria-describedby="">
             </div>
-          </form>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-          <button (click)="addProduct()" type="button" class="btn btn-success" data-bs-dismiss="modal">{{ buttonLabel }}</button>
-        </div>
+            <div class="col-auto col-md-6">
+              <label class="form-label" for="category">Category</label>
+              <select formControlName="category" id="category" class="form-control" (change)="getSubCategories($event.target.value)"
+              >
+                <option
+                  *ngFor="let category of categories;"
+                  value="{{ category.name }}">
+                  {{ category.name | titlecase }}
+                </option>
+              </select>
+            </div>
+            <div class="col-auto col-md-6">
+              <label class="form-label" for="sub-category">Subcategory</label>
+              <select formControlName="subCategory" id="sub-category" class="form-control">
+                <option
+                  *ngFor="let sub of subCategories;"
+                  value="{{ sub.name }}">
+                  {{ sub.name | titlecase }}
+                </option>
+              </select>
+            </div>
+            <div class="col-auto col-md-12">
+              <label class="form-label" for="imageUrl">Image URL</label>
+              <input formControlName="imageUrl" type="text" id="imageUrl" class="form-control" aria-describedby="">
+            </div>
+            <div class="col-auto col-md-4">
+              <label class="form-label" for="price">Subcategory</label>
+              <input formControlName="price" type="number" id="Price" class="form-control" aria-describedby="">
+            </div>
+            <div class="col-auto col-md-4">
+              <label class="form-label" for="display">Display</label>
+              <select formControlName="display" id="display" class="form-control">
+                <option value=null selected>Display</option>
+                <option value=true>True</option>
+                <option value=false>False</option>
+              </select>
+            </div>
+            <div class="col-auto col-md-4">
+              <label class="form-label" for="promo">Promo</label>
+              <select formControlName="promo" id="promo" class="form-control">
+                <option value=null>Promo</option>
+                <option value=true>True</option>
+                <option value=false>False</option>
+              </select>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button (click)="addProduct()" type="button" class="btn btn-success" data-bs-dismiss="modal">{{ buttonLabel }}</button>
       </div>
     </div>
   </div>
-</section>
-<!-- End Trending Product Area -->
+</div>
+<!--end add product modal-->
 
 <!--Confirm Delete Modal-->
 <div class="modal fade" id="confirmModal" tabindex="-1" aria-labelledby="confirmModal" aria-hidden="true">

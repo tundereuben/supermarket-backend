@@ -32,6 +32,7 @@ export class SingleProductComponent implements OnInit {
     console.log(`Adding to cart: ${product.name}, ${product.price}`);
     const theCartItem = new CartItem(product);
     this.cartService.addToCart(theCartItem);
+    // todo: show success when item is added to cart
   }
 
 }

@@ -1,6 +1,7 @@
 export interface Product {
   category: string;
   createdAt: string;
+  desc: string;
   display: boolean;
   imageUrl: string;
   name: string;

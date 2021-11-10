@@ -13,13 +13,11 @@ import {SubCategory} from '../../models/SubCategory';
 export class ProductDashboardComponent implements OnInit {
 
   public products: Product[];
-  public productsLength: number;
-  pageNumbers: number[];
   public newProductForm: FormGroup;
   public searchForm: FormGroup;
 
   public page = 1;
-  public pageSize = 20;
+  public pageSize = 10;
 
   public buttonLabel = 'Add Product';
   public shouldEditProduct: boolean;
@@ -67,9 +65,9 @@ export class ProductDashboardComponent implements OnInit {
     this.service.searchProducts('')
       .subscribe(data => {
         this.products = data;
-        this.productsLength = data.length;
+        /*this.productsLength = data.length;
         console.log(this.products.length);
-        console.log(`products >>> `, (this.productsLength / 10));
+        console.log(`products >>> `, (this.productsLength / 10));*/
       });
   }
 
