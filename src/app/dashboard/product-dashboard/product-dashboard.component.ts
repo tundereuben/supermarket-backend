@@ -24,6 +24,7 @@ export class ProductDashboardComponent implements OnInit {
   public buttonLabel = 'Add Product';
   public shouldEditProduct: boolean;
   public productToEdit: Product;
+  public productToDelete: Product;
   public categories: Category[];
   public subCategories: SubCategory[];
 
@@ -124,7 +125,11 @@ export class ProductDashboardComponent implements OnInit {
   }
 
   deleteProduct(product: Product) {
-    this.service.deleteProduct(product)
+    this.productToDelete = product;
+  }
+
+  confirmDeleteProduct() {
+    this.service.deleteProduct(this.productToDelete)
       .subscribe(data => {
         console.log(`data >>>`, data);
         this.getProducts();

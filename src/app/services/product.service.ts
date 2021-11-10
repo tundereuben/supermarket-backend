@@ -52,7 +52,8 @@ export class ProductService {
   }
 
   getCategories(): Observable<Category[]> {
-    const baseUrl = 'http://localhost:3000/category';
+    // const baseUrl = 'http://localhost:3000/category';
+    const baseUrl = 'https://lucent-supermarket-api.herokuapp.com/category';
     return this.http.get<Category[]>(baseUrl);
   }
 

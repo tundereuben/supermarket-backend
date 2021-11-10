@@ -53,7 +53,9 @@
           <button (click)="editProduct(product)" type="button" class="btn btn-sm btn-primary mr-2" data-bs-toggle="modal" data-bs-target="#editModal">
             <i class="lni lni-pencil"></i>
           </button>
-          <a (click)="deleteProduct(product)" class="btn btn-sm btn-danger"><i class="lni lni-trash-can"></i></a>
+          <a (click)="deleteProduct(product)" class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#confirmModal">
+            <i class="lni lni-trash-can"></i>
+          </a>
         </td>
       </tr>
       </tbody>
@@ -133,12 +135,35 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-          <button (click)="addProduct()" type="button" class="btn btn-success">{{ buttonLabel }}</button>
+          <button (click)="addProduct()" type="button" class="btn btn-success" data-bs-dismiss="modal">{{ buttonLabel }}</button>
         </div>
       </div>
     </div>
   </div>
-
 </section>
 <!-- End Trending Product Area -->
 
+<!--Confirm Delete Modal-->
+<div class="modal fade" id="confirmModal" tabindex="-1" aria-labelledby="confirmModal" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title text-danger">Are you sure you want to delete?</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <img src="{{this.productToDelete.imageUrl}}" alt="" height="100px" style="float: left">
+        <p class="">
+          <span class="fw-bold">Product name </span>: {{ this.productToDelete.name | titlecase }} <br>
+          <span class="fw-bold">Category </span>: {{ this.productToDelete.category | titlecase }} <br>
+          <span class="fw-bold">Sub Category </span>: {{ this.productToDelete.subCategory | titlecase}}
+        </p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button (click)="confirmDeleteProduct()" type="button" class="btn btn-danger" data-bs-dismiss="modal">Confirm Delete</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!--end Confirm Delete Modal-->
