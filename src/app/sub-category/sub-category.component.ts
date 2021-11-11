@@ -17,7 +17,7 @@ export class SubCategoryComponent implements OnInit {
   public subCategoryName: string;
 
   private subCategoryURL = [
-    { name: 'culinary herbs', url: 'culinary-herbs'},
+    { name: 'culinary', url: 'culinary-herbs'},
     { name: 'spices', url: 'spices'},
     { name: 'fresh fruit', url: 'fresh-fruits'},
     { name: 'fresh vegetables', url: 'fresh-vegetables'},

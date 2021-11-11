@@ -16,7 +16,7 @@
         </form>
       </div>
       <div class="col-md-2">
-        <button type="button" class="form-control btn btn-primary" data-bs-toggle="modal" data-bs-target="#editModal">
+        <button (click)="resetForm()" type="button" class="form-control btn btn-primary" data-bs-toggle="modal" data-bs-target="#editModal">
           Add Product
         </button>
       </div>
@@ -34,6 +34,7 @@
         <th scope="col">Display</th>
         <th scope="col">Price</th>
         <th scope="col">Promo</th>
+        <th scope="col">Desc</th>
         <th scope="col">Options</th>
       </tr>
       </thead>
@@ -45,10 +46,11 @@
         <th>{{ product.name | titlecase }}</th>
         <td>{{ product.category | titlecase }}</td>
         <td>{{ product.subCategory | titlecase }}</td>
-        <td>{{ product.imageUrl }}</td>
+        <td class="text-sm-start">{{ product.imageUrl }}</td>
         <td>{{ product.display }}</td>
-        <td>{{ product.price }}</td>
+        <td>{{ product.price | currency: 'N' }}</td>
         <td>{{ product.promo }}</td>
+        <td>{{ product.desc }}</td>
         <td>
           <button (click)="editProduct(product)" type="button" class="btn btn-sm btn-primary mr-2" data-bs-toggle="modal" data-bs-target="#editModal">
             <i class="lni lni-pencil"></i>
@@ -86,7 +88,7 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">{{ buttonLabel }}</h5>
+        <h5 class="modal-title" id="exampleModalLabel">{{ buttonLabel }} Product</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
@@ -122,7 +124,7 @@
               <input formControlName="imageUrl" type="text" id="imageUrl" class="form-control" aria-describedby="">
             </div>
             <div class="col-auto col-md-4">
-              <label class="form-label" for="price">Subcategory</label>
+              <label class="form-label" for="price">Price</label>
               <input formControlName="price" type="number" id="Price" class="form-control" aria-describedby="">
             </div>
             <div class="col-auto col-md-4">
@@ -141,12 +143,16 @@
                 <option value=false>False</option>
               </select>
             </div>
+            <div class="col-auto col-md-12 mb-1">
+              <label class="form-label" for="desc">Product Description</label>
+              <textarea formControlName="desc" class="form-control" id="desc" rows="3"></textarea>
+            </div>
           </div>
         </form>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button (click)="addProduct()" type="button" class="btn btn-success" data-bs-dismiss="modal">{{ buttonLabel }}</button>
+        <button (click)="addProduct()" type="button" class="btn btn-success" data-bs-dismiss="modal">{{ buttonLabel }} Product</button>
       </div>
     </div>
   </div>

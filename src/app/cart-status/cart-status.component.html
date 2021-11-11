@@ -12,11 +12,11 @@
       <i class="lni lni-cart"></i>
       <span class="total-items">{{ totalQuantity }}</span>
     </a>
-    <a href="javascript:void(0)">
-      <span class="total-amount">{{ totalPrice | currency: 'N'}}</span>
+    <a routerLink="/cart-details">
+      <span class="total-amount fw-bold">{{ totalPrice | currency: 'N'}}</span>
     </a>
     <!-- Shopping Item -->
-    <div class="shopping-item">
+    <!--<div class="shopping-item">
       <div class="dropdown-cart-header">
         <span>{{ totalQuantity }} Items</span>
         <a href="cart.html">View Cart</a>
@@ -58,7 +58,7 @@
           <a href="checkout.html" class="btn animate">Checkout</a>
         </div>
       </div>
-    </div>
+    </div>-->
     <!--/ End Shopping Item -->
   </div>
 </div>

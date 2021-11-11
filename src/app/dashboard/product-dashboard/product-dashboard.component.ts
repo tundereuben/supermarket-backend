@@ -19,7 +19,7 @@ export class ProductDashboardComponent implements OnInit {
   public page = 1;
   public pageSize = 10;
 
-  public buttonLabel = 'Add Product';
+  public buttonLabel = 'Add ';
   public shouldEditProduct: boolean;
   public productToEdit: Product;
   public productToDelete: Product;
@@ -60,7 +60,7 @@ export class ProductDashboardComponent implements OnInit {
   }
 
   getProducts() {
-    this.buttonLabel = 'Add Product';
+    this.buttonLabel = 'Add ';
     this.shouldEditProduct = false;
     this.service.searchProducts('')
       .subscribe(data => {
@@ -79,7 +79,8 @@ export class ProductDashboardComponent implements OnInit {
       display: true,
       imageUrl: '',
       price: 0,
-      promo: false
+      promo: false,
+      desc: ''
     });
   }
 
@@ -92,23 +93,24 @@ export class ProductDashboardComponent implements OnInit {
     if (!this.shouldEditProduct) {
       this.service.addProduct(dataToPost)
         .subscribe(data => {
-          this.getProducts();
-          this.newProductForm.patchValue({});
+          this.searchForm.patchValue({ keyword: rawValue.name });
+          this.search();
+          this.resetForm();
         });
     } else {
       this.service.editProduct(dataToPost, this.productToEdit._id)
         .subscribe(data => {
-          this.getProducts();
+          this.searchForm.patchValue({ keyword: rawValue.name });
+          this.search();
           console.log(`edited product >>>`, data);
         });
     }
-
   }
 
   editProduct(product: Product) {
     this.shouldEditProduct = true;
     this.productToEdit = product;
-    this.buttonLabel = 'Edit Product';
+    this.buttonLabel = 'Edit ';
     this.getSubCategories(product.category);
     this.newProductForm.patchValue({
       name: product.name,
@@ -117,7 +119,8 @@ export class ProductDashboardComponent implements OnInit {
       display: product.display,
       imageUrl: product.imageUrl,
       price: product.price,
-      promo: product.promo
+      promo: product.promo,
+      desc: product.desc
     });
     console.log(this.productToEdit);
   }
@@ -130,7 +133,7 @@ export class ProductDashboardComponent implements OnInit {
     this.service.deleteProduct(this.productToDelete)
       .subscribe(data => {
         console.log(`data >>>`, data);
-        this.getProducts();
+        this.search();
       });
   }
 
@@ -140,6 +143,12 @@ export class ProductDashboardComponent implements OnInit {
       .subscribe(data => {
         this.products = data;
       });
+  }
+
+  resetForm() {
+    this.buttonLabel = 'Add ';
+    this.shouldEditProduct = false;
+    this.newProductForm.reset();
   }
 
 }
