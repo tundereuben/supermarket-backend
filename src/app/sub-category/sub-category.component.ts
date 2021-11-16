@@ -46,7 +46,7 @@ export class SubCategoryComponent implements OnInit {
 
     { name: 'naija vegetables', url: 'naija-vegetables'},
     { name: 'naija tubers', url: 'naija-tubers'},
-    { name: 'naija spices and condiment', url: 'naija-spices-and-condiments'},
+    { name: 'naija condiment and spices', url: 'naija-spices-and-condiments'},
     { name: 'naija snack', url: 'naija-snacks'},
 
     { name: 'biscuits and wafers', url: 'biscuits-and-wafers'},
@@ -73,8 +73,8 @@ export class SubCategoryComponent implements OnInit {
     { name: 'foil and cling film', url: 'foil-and-cling-film'},
     { name: 'freezer and sandwich bags', url: 'freezer-snd-sandwich-bags'},
     { name: 'storage and organization', url: 'storage-and-organization'},
-    { name: 'bakeware and cookware', url: 'bakeware-and-cookware'},
-    { name: 'kitchen utensils', url: 'kitchen utensils'},
+    { name: 'kitchen appliances', url: 'kitchen-appliances'},
+    { name: 'kitchen wares', url: 'kitchen-wares'},
     { name: 'nylon bags and carry sacks', url: 'nylon-bags-and-carry-sacks'},
     { name: 'food containers', url: 'food-containers'},
 
