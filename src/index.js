@@ -5,6 +5,8 @@ require('./db/mongoose');
 const productRouter = require('./routers/product');
 const subCategoryRouter = require('./routers/subCategory');
 const categoryRouter = require('./routers/category');
+const userRouter = require('./routers/user');
+const cartRouter = require('./routers/cart');
 
 const app = express();
 const port = process.env.PORT;
@@ -17,6 +19,8 @@ app.use(cors({
 app.use(productRouter);
 app.use(categoryRouter)
 app.use(subCategoryRouter);
+app.use(userRouter);
+app.use(cartRouter);
 
 app.listen(port, () => {
     console.log(`Express is live and running on port ${port}`);

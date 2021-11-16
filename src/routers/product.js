@@ -15,15 +15,26 @@ router.post('/products', async (req, res) => {
 
 router.get('/products', async (req, res) => {
     const match = {}; // search query
+    const sort = {};
+
     if (req.query.category) match.category = req.query.category;
     if (req.query.subCategory) match.subCategory = req.query.subCategory;
     if (req.query.name) match.name = req.query.name;
     if (req.query.display) match.display = req.query.display;
     if (req.query.promo) match.promo = req.query.promo;
 
+    if (req.query.sortBy) {
+        const parts = req.query.sortBy.split(':')
+        sort[parts[0]] = parts[1] === 'desc' ? -1 : 1
+    }
+
     const limit = parseInt(req.query.limit) || 1000;
     const skip = parseInt(req.query.skip) || 0;
-    const products = await Product.find(match).limit(limit).skip(skip);
+    const products = await Product.find(match)
+                        .limit(limit)
+                        .skip(skip)
+                        .sort(sort)
+    
 
     try {
         if (!products) {
