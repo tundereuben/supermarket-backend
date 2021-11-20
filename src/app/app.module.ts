@@ -11,7 +11,6 @@ import {ReactiveFormsModule} from '@angular/forms';
 import { ProductDashboardComponent } from './dashboard/product-dashboard/product-dashboard.component';
 import { AppRoutingModule } from './app-routing.module';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
-import { CategoryHomeComponent } from './category-home/category-home.component';
 import { SearchComponent } from './search/search.component';
 import {NgbPaginationModule} from '@ng-bootstrap/ng-bootstrap';
 import { SingleProductComponent } from './single-product/single-product.component';
@@ -19,6 +18,8 @@ import { SubCategoryComponent } from './sub-category/sub-category.component';
 import { CartStatusComponent } from './cart-status/cart-status.component';
 import { CartItemComponent } from './cart-item/cart-item.component';
 import { CartDetailsComponent } from './cart-details/cart-details.component';
+import { LoginComponent } from './auth/login/login.component';
+import { RegisterComponent } from './auth/register/register.component';
 
 @NgModule({
   declarations: [
@@ -28,13 +29,14 @@ import { CartDetailsComponent } from './cart-details/cart-details.component';
     FooterComponent,
     ProductDashboardComponent,
     PageNotFoundComponent,
-    CategoryHomeComponent,
     SearchComponent,
     SingleProductComponent,
     SubCategoryComponent,
     CartStatusComponent,
     CartItemComponent,
-    CartDetailsComponent
+    CartDetailsComponent,
+    LoginComponent,
+    RegisterComponent
   ],
   imports: [
     BrowserModule,

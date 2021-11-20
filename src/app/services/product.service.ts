@@ -32,7 +32,7 @@ export class ProductService {
     skip: number = 0
   ): Observable<Product[]> {
     const params = new HttpParams()
-      .append('search', `${search}`)
+      .append('search', `${search}`);
       // .append('limit', `${limit}`)
       // .append('skip', `${skip}`);
 
