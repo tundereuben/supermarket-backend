@@ -9,7 +9,7 @@ router.post('/users', async (req, res) => {
 
     try {
         await user.save();
-        sendWelcomeEmail(user.email, user.name);
+        sendWelcomeEmail(user.email, user.firstName);
         const token = await user.generateAuthToken();
         res.status(201).send({ user, token });
     } catch (e) {
@@ -33,6 +33,7 @@ router.get('/users/me', auth, async (req, res) => {
 })
 
 router.post('/users/logout', auth, async (req, res) => {
+    console.log(`req >>> `, req);
     try {
         req.user.tokens = req.user.tokens.filter((token) => {
             return token.token !== req.token
