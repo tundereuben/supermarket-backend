@@ -20,6 +20,9 @@ import { CartItemComponent } from './cart-item/cart-item.component';
 import { CartDetailsComponent } from './cart-details/cart-details.component';
 import { LoginComponent } from './auth/login/login.component';
 import { RegisterComponent } from './auth/register/register.component';
+import { CheckoutComponent } from './checkout/checkout.component';
+import { PaymentComponent } from './payment/payment.component';
+import {FlutterwaveModule} from 'flutterwave-angular-v3';
 
 @NgModule({
   declarations: [
@@ -36,7 +39,9 @@ import { RegisterComponent } from './auth/register/register.component';
     CartItemComponent,
     CartDetailsComponent,
     LoginComponent,
-    RegisterComponent
+    RegisterComponent,
+    CheckoutComponent,
+    PaymentComponent
   ],
   imports: [
     BrowserModule,
@@ -45,6 +50,7 @@ import { RegisterComponent } from './auth/register/register.component';
     ReactiveFormsModule,
     AppRoutingModule,
     NgbPaginationModule,
+    FlutterwaveModule
   ],
   providers: [],
   bootstrap: [AppComponent]

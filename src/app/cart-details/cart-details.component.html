@@ -34,25 +34,25 @@
         </button>
       </td>
     </tr>
+    <tr>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td class="fw-bold">
+        Grand Total: <br>
+        Shipping: <br>
+        You pay:
+      </td>
+      <td class="fw-bold">
+         {{ totalQuantity }} <br>
+        Free <br>
+        {{ totalPrice | currency: 'N ' }} <br> <br>
+        <a class="btn btn-primary" routerLink="/checkout">Checkout</a>
+      </td>
+    </tr>
     </tbody>
   </table>
-
-  <div class="container">
-    <table class="lead">
-      <tr>
-        <td>Grand Total: </td>
-        <td>{{ totalQuantity }}</td>
-      </tr>
-      <tr>
-        <td>Shipping: </td>
-        <td>Free</td>
-      </tr>
-      <tr>
-        <td>You Pay: </td>
-        <td>{{ totalPrice | currency: 'N ' }}</td>
-      </tr>
-    </table>
-  </div>
 
 </div>
 

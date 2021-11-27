@@ -59,14 +59,19 @@
           <div class="top-end">
             <div class="user">
               <i class="lni lni-user"></i>
-              Hello
+              Hello {{ user?.firstName }}
             </div>
-            <ul class="user-login">
+            <ul *ngIf="!isLoggedIn" class="user-login">
               <li>
                 <a routerLink="/login">Sign In</a>
               </li>
               <li>
                 <a routerLink="/register">Register</a>
+              </li>
+            </ul>
+            <ul *ngIf="isLoggedIn" class="user-login">
+              <li>
+                <a (click)="logout()" href="">Logout</a>
               </li>
             </ul>
           </div>

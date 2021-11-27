@@ -10,6 +10,8 @@ import {SubCategoryComponent} from './sub-category/sub-category.component';
 import {CartDetailsComponent} from './cart-details/cart-details.component';
 import {RegisterComponent} from './auth/register/register.component';
 import {LoginComponent} from './auth/login/login.component';
+import {CheckoutComponent} from './checkout/checkout.component';
+import {PaymentComponent} from './payment/payment.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -18,6 +20,8 @@ const routes: Routes = [
   { path: 'sub-category/:name', component: SubCategoryComponent },
   { path: 'cart-details', component: CartDetailsComponent },
   { path: 'search', component: SearchComponent },
+  { path: 'checkout', component: CheckoutComponent },
+  { path: 'payment', component: PaymentComponent },
 
   { path: 'register', component: RegisterComponent },
   { path: 'login', component: LoginComponent },

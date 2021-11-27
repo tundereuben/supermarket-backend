@@ -1,30 +1,40 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable} from 'rxjs';
-import {User} from '../models/User';
+
+const AUTH_API = 'https://lucent-supermarket-api.herokuapp.com/';
+const httpOptions = {
+  headers: new HttpHeaders({ 'Content-Type': 'application/json '})
+};
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
-  constructor(
-    private http: HttpClient
-  ) { }
+  constructor(private http: HttpClient) { }
 
-  register(user: User): Observable<User> {
-    const baseUrl = 'https://lucent-supermarket-api.herokuapp.com/users';
-    const headers: HttpHeaders = new HttpHeaders({
-      'Content-Type': 'application/json;charset=utf-8',
-    });
-    return this.http.post<User>(baseUrl, JSON.stringify(user), {headers});
+  login(credentials): Observable<any> {
+    return this.http.post(AUTH_API + 'users/login', {
+      email: credentials.email,
+      password: credentials.password
+    }, httpOptions);
   }
 
-  login(user: User) {
-    const baseUrl = 'https://lucent-supermarket-api.herokuapp.com/users/login';
-    const headers: HttpHeaders = new HttpHeaders({
-      'Content-Type': 'application/json;charset=utf-8',
-    });
-    return this.http.post<User>(baseUrl, JSON.stringify(user), {headers});
+  register(user): Observable<any> {
+    return this.http.post(AUTH_API + 'users', {
+      firstName: user.firstName,
+      lastName: user.lastName,
+      email: user.email,
+      password: user.password
+    }, httpOptions);
+  }
+
+  logout() {
+    return this.http.post(AUTH_API + 'users/logout', httpOptions);
+  }
+
+  logoutAll() {
+
   }
 }
