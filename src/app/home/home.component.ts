@@ -5,6 +5,7 @@ import {Router} from '@angular/router';
 import {CartService} from '../services/cart.service';
 import {CartItem} from '../common/cart-item';
 
+
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -13,14 +14,18 @@ import {CartItem} from '../common/cart-item';
 export class HomeComponent implements OnInit {
   public items: Product[];
   public categories: any[];
+  public showAlert: boolean;
 
   constructor(
     private productService: ProductService,
     private router: Router,
     private cartService: CartService
-  ) { }
+  ) {
+    this.showAlert = false;
+  }
 
   ngOnInit() {
+
     this.categories = [
       {
         name: 'fruits and vegetables',
@@ -44,15 +49,17 @@ export class HomeComponent implements OnInit {
       this.productService.getAllCategories(category.name, true, 4)
         .subscribe(data => {
           category.products = data;
-          console.log(category);
         });
     });
   }
 
   addToCart(product: Product) {
-    console.log(`Adding to cart: ${product.name}, ${product.price}`);
     const cartItem = new CartItem(product);
     this.cartService.addToCart(cartItem);
+    this.showAlert = true;
+    setTimeout(() => {
+      this.showAlert = false;
+    }, 1000);
   }
 
   gotoProduct(product: Product) {

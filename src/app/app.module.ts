@@ -23,6 +23,7 @@ import { RegisterComponent } from './auth/register/register.component';
 import { CheckoutComponent } from './checkout/checkout.component';
 import { PaymentComponent } from './payment/payment.component';
 import {FlutterwaveModule} from 'flutterwave-angular-v3';
+import {authInterceptorProviders} from './_helpers/auth.interceptors';
 
 @NgModule({
   declarations: [
@@ -52,7 +53,7 @@ import {FlutterwaveModule} from 'flutterwave-angular-v3';
     NgbPaginationModule,
     FlutterwaveModule
   ],
-  providers: [],
+  providers: [ authInterceptorProviders ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

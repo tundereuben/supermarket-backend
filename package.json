@@ -23,6 +23,7 @@
     "@okta/okta-angular": "^4.1.1",
     "@okta/okta-signin-widget": "^5.13.1",
     "flutterwave-angular-v3": "^1.2.1",
+    "primeng": "^13.0.0",
     "rxjs": "~6.4.0",
     "tslib": "^1.10.0",
     "zone.js": "~0.9.1"

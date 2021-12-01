@@ -6,6 +6,7 @@ import {CartItem} from '../common/cart-item';
 import {CartService} from '../services/cart.service';
 import {User} from '../models/User';
 import {TokenStorageService} from '../services/token-storage.service';
+import {PurchaseService} from '../services/purchase.service';
 
 @Component({
   selector: 'app-checkout',
@@ -20,19 +21,41 @@ export class CheckoutComponent implements OnInit {
 
   public isLoggedIn = false;
   public user: User;
+  public purchase: any;
 
   constructor(
     private fb: FormBuilder,
     private router: Router,
     private cartService: CartService,
     private authService: AuthService,
-    private tokenStorage: TokenStorageService
+    private tokenStorage: TokenStorageService,
+    private purchaseService: PurchaseService
   ) { }
 
   ngOnInit() {
     this.createCheckoutForm();
     this.reviewCartDetails();
     this.getUser();
+
+    this.purchaseService.getPurchases()
+      .subscribe(data => {
+        console.log(`Existing purchase >>>`, data);
+        if (data) {
+          this.purchase = data[0];
+          this.checkoutFormGroup.patchValue({
+            shippingAddress: {
+              street: this.purchase.shippingAddress.street,
+              city: this.purchase.shippingAddress.city,
+              state: this.purchase.shippingAddress.state,
+            },
+            billingAddress: {
+              street: this.purchase.billingAddress.street,
+              city: this.purchase.billingAddress.city,
+              state: this.purchase.billingAddress.state,
+            }
+          });
+        }
+      });
   }
 
   getUser() {
@@ -51,6 +74,9 @@ export class CheckoutComponent implements OnInit {
         firstName: this.user.firstName,
         lastName: this.user.lastName,
         email: this.user.email
+      },
+      shippingAddress: {
+        country: 'Nigeria'
       }
     });
   }
@@ -61,29 +87,18 @@ export class CheckoutComponent implements OnInit {
         firstName: [''],
         lastName: [''],
         email: [''],
-        // password: [''],
       }),
       shippingAddress: this.fb.group({
         street: [''],
         city: [''],
         state: [''],
         country: [''],
-        zipCode: [''],
       }),
       billingAddress: this.fb.group({
         street: [''],
         city: [''],
         state: [''],
         country: [''],
-        zipCode: [''],
-      }),
-      creditCard: this.fb.group({
-        cardType: [''],
-        nameOnCard: [''],
-        cardNumber: [''],
-        securityCode: [''],
-        expirationMonth: [''],
-        expirationYear: [''],
       })
     });
   }
@@ -97,18 +112,31 @@ export class CheckoutComponent implements OnInit {
     }
   }
 
-  onSubmit() {
+  checkout() {
+    const shippingAddress = this.checkoutFormGroup.get('shippingAddress').value;
+    const billingAddress = this.checkoutFormGroup.get('billingAddress').value;
+
+    const dataToPost: User = {
+      firstName: this.user.firstName,
+      lastName: this.user.lastName,
+      email: this.user.email,
+      phone: this.user.phone,
+      shippingAddress: {
+        ...shippingAddress
+      },
+      billingAddress: {
+        ...billingAddress
+      }
+    };
+    console.log(dataToPost);
     this.router.navigate(['payment']);
-    console.log(this.checkoutFormGroup.get('customer').value);
   }
 
   reviewCartDetails() {
-    // subscribe to cartService.totalQuantity
     this.cartService.totalQuantity.asObservable()
       .subscribe(totalQuantity => this.totalQuantity = totalQuantity
     );
 
-    // subscribe to cartService.totalPrice
     this.cartService.totalPrice.asObservable()
       .subscribe(totalPrice => this.totalPrice = totalPrice
     );

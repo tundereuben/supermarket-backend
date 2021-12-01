@@ -13,19 +13,6 @@ export class ProductService {
     private http: HttpClient
   ) { }
 
-  /*getProducts(
-    limit: number = 1000,
-    skip: number = 0
-    ): Observable<Product[]> {
-    const params = new HttpParams()
-      .append('limit', `${limit}`)
-      .append('skip', `${skip}`);
-
-    const baseUrl = 'https://lucent-supermarket-api.herokuapp.com/products';
-    // const baseUrl = 'http://localhost:3000/sub-category';
-    return this.http.get<Product[]>(baseUrl, { params });
-  }*/
-
   searchProducts(
     search: string,
     limit: number = 10,

@@ -1,48 +1,44 @@
 <!-- Start Item Details -->
 <section class="item-details section">
   <div class="container">
-    <div class="top-area col-md-6 offset-md-3">
+    <div class="top-area col-md-12">
       <form [formGroup]="checkoutFormGroup">
+
         <fieldset class="border p-2 my-2">
           <legend class="w-auto">Customer Details</legend>
           <div formGroupName="customer">
-            <div class="mb-3">
-              <label for="email" class="form-label">First name</label>
-              <input formControlName="firstName" type="firstName" class="form-control" id="firstName" aria-describedby="firstNameHelp">
+            <div class="row">
+              <div class="col">
+                <input formControlName="firstName" type="text" class="form-control" placeholder="First name" >
+              </div>
+              <div class="col">
+                <input formControlName="lastName" type="text" class="form-control" placeholder="Last name" >
+              </div>
+              <div class="col">
+                <input formControlName="email" type="text" class="form-control" placeholder="Email" >
+              </div>
             </div>
-            <div class="mb-3">
-              <label for="email" class="form-label">Last name</label>
-              <input formControlName="lastName" type="lastName" class="form-control" id="lastName" aria-describedby="lastNameHelp">
-            </div>
-            <div class="mb-3">
-              <label for="email" class="form-label">Email address</label>
-              <input formControlName="email" type="email" class="form-control" id="email" aria-describedby="emailHelp">
-            </div>
-            <!--<div class="mb-3">
-              <label for="password" class="form-label">Password</label>
-              <input formControlName="password" type="password" class="form-control" id="password">
-            </div>-->
           </div>
         </fieldset>
 
         <fieldset class="border p-2 my-2">
           <legend class="w-auto">Shipping Address</legend>
           <div formGroupName="shippingAddress">
-            <div class="mb-3">
-              <label for="country" class="form-label">Country</label>
-              <input formControlName="country" type="text" class="form-control" aria-describedby="countryHelp">
+            <div class="row">
+              <div class="col">
+                <input formControlName="country" type="text" placeholder="Country" class="form-control" >
+              </div>
+              <div class="col">
+                <input formControlName="state" type="text" placeholder="State" class="form-control">
+              </div>
+              <div class="col">
+                <input formControlName="city" type="text" placeholder="City" class="form-control">
+              </div>
             </div>
-            <div class="mb-3">
-              <label for="email" class="form-label">State</label>
-              <input formControlName="state" type="text" class="form-control" aria-describedby="stateHelp">
-            </div>
-            <div class="mb-3">
-              <label for="city" class="form-label">City</label>
-              <input formControlName="city" type="text" class="form-control" aria-describedby="cityHelp">
-            </div>
-            <div class="mb-3">
-              <label for="street" class="form-label">Street</label>
-              <input formControlName="street" type="text" class="form-control">
+            <div class="row my-3">
+              <div class="col">
+                <input formControlName="street" type="text" placeholder="House address" class="form-control">
+              </div>
             </div>
           </div>
         </fieldset>
@@ -50,55 +46,25 @@
         <fieldset class="border p-2 my-2">
           <legend class="w-auto">Billing Address</legend>
           <div formGroupName="billingAddress" class="form-area">
-            <div class="mb-3">
+            <div class="mb-3" style="">
               <input type="checkbox" (change)="copyShippingAddressToBillingAddress($event)">
               <span class="m-lg-2"> Billing Address same as Shipping Address</span>
             </div>
-            <div class="mb-3">
-              <label for="email" class="form-label">Country</label>
-              <input formControlName="country" type="text" class="form-control" id="country" aria-describedby="countryHelp">
+            <div class="row">
+              <div class="col">
+                <input formControlName="country" type="text" placeholder="Country" class="form-control" >
+              </div>
+              <div class="col">
+                <input formControlName="state" type="text" placeholder="State" class="form-control">
+              </div>
+              <div class="col">
+                <input formControlName="city" type="text" placeholder="City" class="form-control">
+              </div>
             </div>
-            <div class="mb-3">
-              <label for="email" class="form-label">State</label>
-              <input formControlName="state" type="text" class="form-control" id="state" aria-describedby="stateHelp">
-            </div>
-            <div class="mb-3">
-              <label for="city" class="form-label">City</label>
-              <input formControlName="city" type="text" class="form-control" id="city" aria-describedby="cityHelp">
-            </div>
-            <div class="mb-3">
-              <label for="street" class="form-label">Street</label>
-              <input formControlName="street" type="text" class="form-control" id="street">
-            </div>
-          </div>
-        </fieldset>
-
-        <fieldset class="border p-2 my-2">
-          <legend class="w-auto">Card Details</legend>
-          <div formGroupName="creditCard" class="form-area">
-            <div class="mb-3">
-              <label for="email" class="form-label">Card Type</label>
-              <input formControlName="cardType" type="text" class="form-control" id="cardType" aria-describedby="countryHelp">
-            </div>
-            <div class="mb-3">
-              <label for="email" class="form-label">Name on Card</label>
-              <input formControlName="nameOnCard" type="text" class="form-control" id="nameOnCard" aria-describedby="stateHelp">
-            </div>
-            <div class="mb-3">
-              <label for="city" class="form-label">Card Number</label>
-              <input formControlName="cardNumber" type="text" class="form-control" id="cardNumber" aria-describedby="cityHelp">
-            </div>
-            <div class="mb-3">
-              <label for="street" class="form-label">Security Code</label>
-              <input formControlName="securityCode" type="text" class="form-control" id="securityCode">
-            </div>
-            <div class="mb-3">
-              <label for="street" class="form-label">Expiration Month</label>
-              <input formControlName="expirationMonth" type="text" class="form-control" id="expirationMonth">
-            </div>
-            <div class="mb-3">
-              <label for="street" class="form-label">Expiration Year</label>
-              <input formControlName="expirationYear" type="text" class="form-control" id="expirationYear">
+            <div class="row my-3">
+              <div class="col">
+                <input formControlName="street" type="text" placeholder="House address" class="form-control">
+              </div>
             </div>
           </div>
         </fieldset>
@@ -109,8 +75,11 @@
           <p>Shipping: FREE</p>
           <p>Total Price: {{ totalPrice | currency: 'N'}}</p>
         </fieldset>
-
-        <button (click)="onSubmit()" type="submit" class="btn btn-primary my-3">Checkout</button>
+        <div class="row">
+          <div class="col-md-3 offset-md-9">
+            <button (click)="checkout()" type="submit" class="btn btn-primary my-3" style="width: 100%">Checkout</button>
+          </div>
+        </div>
       </form>
     </div>
   </div>

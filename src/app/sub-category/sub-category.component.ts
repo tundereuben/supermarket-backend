@@ -31,7 +31,7 @@ export class SubCategoryComponent implements OnInit {
     { name: 'breakfast cereals', url: 'breakfast-cereals'},
     { name: 'beverages and drinks', url: 'beverages-and-drinks'},
     { name: 'beans, rice and grains', url: 'beans-rice-grains'},
-    { name: 'custard, jelly and pap', url: 'custard-syrup-pap'},
+    { name: 'custard, syrup and pap', url: 'custard-syrup-pap'},
     { name: 'cake, bake, pancake and bread', url: 'cake-beancake-pancake-bread'},
     { name: 'canned food', url: 'canned-food'},
     { name: 'dairy,cheese,eggs', url: 'dairy-cheese-egg'},

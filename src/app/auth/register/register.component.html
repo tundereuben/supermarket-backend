@@ -1,27 +1,32 @@
-<!-- Start Item Details -->
 <section class="item-details section">
-  <div class="container">
-    <div class="top-area col-md-6 offset-md-3">
-      <form [formGroup]="registerForm">
-        <div class="mb-3">
-          <label for="firstName" class="form-label">First Name</label>
-          <input formControlName="firstName" type="text" class="form-control" id="firstName" aria-describedby="firstNameHelp">
+  <div class="">
+    <div class="top-area col-md-12">
+      <div class="row my-3">
+        <div class="col-md-4 offset-md-4" style="border: solid 1px #ccc; padding: 20px">
+          <form [formGroup]="registerForm">
+            <div class="mb-3">
+              <label for="firstName" class="form-label">First Name</label>
+              <input formControlName="firstName" type="text" class="form-control" id="firstName" aria-describedby="firstNameHelp">
+            </div>
+            <div class="mb-3">
+              <label for="lastName" class="form-label">Last Name</label>
+              <input formControlName="lastName" type="text" class="form-control" id="lastName" aria-describedby="lastNameHelp">
+            </div>
+            <div class="mb-3">
+              <label for="email" class="form-label">Email address</label>
+              <input formControlName="email" type="email" class="form-control" id="email" aria-describedby="emailHelp">
+            </div>
+            <div class="mb-3">
+              <label for="password" class="form-label">Password</label>
+              <input formControlName="password" type="password" class="form-control" id="password">
+            </div>
+            <button (click)="register()" type="submit" class="btn btn-primary">Register</button>
+            <span class="ml-2" style="float: right">
+              Already have an account? <a routerLink="/login">Login</a> instead.
+            </span>
+          </form>
         </div>
-        <div class="mb-3">
-          <label for="lastName" class="form-label">Last Name</label>
-          <input formControlName="lastName" type="text" class="form-control" id="lastName" aria-describedby="lastNameHelp">
-        </div>
-        <div class="mb-3">
-          <label for="email" class="form-label">Email address</label>
-          <input formControlName="email" type="email" class="form-control" id="email" aria-describedby="emailHelp">
-        </div>
-        <div class="mb-3">
-          <label for="password" class="form-label">Password</label>
-          <input formControlName="password" type="password" class="form-control" id="password">
-        </div>
-        <button (click)="register()" type="submit" class="btn btn-primary">Submit</button>
-        <span class="ml-2">Already have an account? <a routerLink="/login">Login</a> instead.</span>
-      </form>
+      </div>
     </div>
   </div>
 </section>

@@ -6,6 +6,8 @@ import {CartService} from '../services/cart.service';
 import {AuthService} from '../services/auth.service';
 import {TokenStorageService} from '../services/token-storage.service';
 import {Flutterwave, PaymentSuccessResponse} from 'flutterwave-angular-v3';
+import {CartItem} from '../common/cart-item';
+import {PurchaseService} from '../services/purchase.service';
 
 @Component({
   selector: 'app-payment',
@@ -17,21 +19,30 @@ import {Flutterwave, PaymentSuccessResponse} from 'flutterwave-angular-v3';
   public paymentForm: FormGroup;
   public totalPrice = 0;
   public totalQuantity = 0;
+  public cartItems: CartItem[] = [];
 
   public isLoggedIn = false;
   public user: User;
 
-  // flutterwave parameters
   publicKey = 'FLWPUBK_TEST-e05b305c48c395af32844477606c105a-X';
-  // publicKey = 'FLWPUBK-6270b1824f0f4b9a54d8e299abf3ca2d-X';
-  customerDetails = { name: 'Demo Customer  Name', email: 'customer@mail.com', phone_number: '08100000000'};
+  customerDetails = {
+    name: 'Demo Customer  Name',
+    email: 'customer@mail.com',
+    phone_number: '08100000000'
+  };
   customizations = {
-    title: 'Customization Title',
+    title: 'Complete payment',
     description: 'Customization Description',
     logo: 'https://flutterwave.com/images/logo-colored.svg'
   };
-  meta = { counsumer_id: '7898', consumer_mac: 'kjs9s8ss7dd'};
-  // flutterwave parameters end
+  meta = { consumer_id: '7898', consumer_mac: 'kjs9s8ss7dd'};
+  testCard = {
+    cardNumber: 5531886652142950,
+    cvv: 564,
+    expiry: '09/32',
+    pin: 3310,
+    otp: 12345
+  };
 
   constructor(
     private fb: FormBuilder,
@@ -39,6 +50,7 @@ import {Flutterwave, PaymentSuccessResponse} from 'flutterwave-angular-v3';
     private cartService: CartService,
     private authService: AuthService,
     private tokenStorage: TokenStorageService,
+    private purchaseService: PurchaseService,
     private flutterwave: Flutterwave
   ) { }
 
@@ -46,10 +58,16 @@ import {Flutterwave, PaymentSuccessResponse} from 'flutterwave-angular-v3';
   makePaymentCallback(response: PaymentSuccessResponse): void {
     console.log('Pay', response);
     this.flutterwave.closePaymentModal(5);
+    this.purchaseService.sendCartItems(JSON.stringify(this.cartItems))
+      .subscribe(data => {
+        console.log(`Send cartItems to admin >>>`, data);
+      });
   }
+
   closedPaymentModal(): void {
     console.log('payment is closed');
   }
+
   generateReference(): string {
     const date = new Date();
     return date.getTime().toString();
@@ -76,6 +94,11 @@ import {Flutterwave, PaymentSuccessResponse} from 'flutterwave-angular-v3';
       this.isLoggedIn = true;
       this.user = this.tokenStorage.getUser().user;
       this.patchUserDetails();
+      this.customerDetails = {
+        name: `${this.user.firstName} ${this.user.lastName}`,
+        email: this.user.email,
+        phone_number: '08100000000' // todo: add phone number to user
+      };
     } else {
       this.router.navigate(['login']);
     }
@@ -101,18 +124,9 @@ import {Flutterwave, PaymentSuccessResponse} from 'flutterwave-angular-v3';
       .subscribe(totalPrice => this.totalPrice = totalPrice
       );
 
+    this.cartItems = this.cartService.cartItems;
+
     this.cartService.computeCartTotals();
-  }
-
-  payWithPaystack() {
-    const rawValue = this.paymentForm.getRawValue();
-    /* const handler = PaystackPop.setup({
-      key: 'pk_test_xxxxxxxxxx', // Replace with your public key
-      email: rawValue.email,
-      amount: rawValue.amount * 100,
-    });
-
-    handler.openIframe(); */
   }
 
 }

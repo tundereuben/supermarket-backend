@@ -98,6 +98,9 @@
             <div class="product-image">
               <img src="../..{{ item.imageUrl }}" alt="{{ item.imageUrl }}" >
               <div class="button">
+                <span *ngIf="showAlert" class="alert alert-success">
+                  <strong>added to cart.</strong>
+                </span>
                 <a (click)="addToCart(item)" href="javascript:void(0)" class="btn"><i class="lni lni-cart"></i> Add to Cart</a>
               </div>
             </div>

@@ -37,18 +37,18 @@
     <tr>
       <td></td>
       <td></td>
-      <td></td>
-      <td></td>
-      <td class="fw-bold">
-        Grand Total: <br>
-        Shipping: <br>
-        You pay:
+      <td class="fw-bold text-sm-end" colspan="2">
+        Grand Total <br>
+        Shipping <br>
+        You pay
       </td>
-      <td class="fw-bold">
-         {{ totalQuantity }} <br>
-        Free <br>
-        {{ totalPrice | currency: 'N ' }} <br> <br>
-        <a class="btn btn-primary" routerLink="/checkout">Checkout</a>
+      <td class=" fw-bold text-sm-start">
+         {{ totalPrice | currency: 'N'}} <br>
+        <strong>FREE</strong> <br>
+        {{ totalPrice | currency: 'N' }} <br> <br>
+      </td>
+      <td>
+        <a (click)="checkout()" class="btn btn-success" style="width: 100%">Checkout</a>
       </td>
     </tr>
     </tbody>

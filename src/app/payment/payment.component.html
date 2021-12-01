@@ -1,19 +1,53 @@
-<div class="container">
-  <div class="row my-5">
-    <flutterwave-make-payment
-      [public_key]="publicKey"
-      amount='1'
-      currency='NGN'
-      payment_options="card"
-      redirect_url=""
-      text="Pay Now"
-      [customer]="customerDetails"
-      [customizations]="customizations"
-      [meta]="meta"
-      [tx_ref]="generateReference()"
-      (callback)="makePaymentCallback($event)"
-      (close)="closedPaymentModal()" >
-    </flutterwave-make-payment>
-
+<!-- Start Item Details -->
+<section class="item-details section">
+  <div class="container">
+    <div class="top-area">
+      <div class="row align-items-center">
+        <!--<div class="col-lg-6 col-md-12 col-12">
+          <div class="product-images">
+            <main id="gallery">
+              <div class="main-img">
+                <h3>Cart Details</h3>
+              </div>
+            </main>
+          </div>
+        </div>-->
+        <div class="col-lg-6 offset-md-3 col-md-12 col-12">
+          <div class="product-info">
+            <h2 class="title">Complete Payment</h2>
+            <!--<p class="category">
+              <i class="lni lni-tag">
+              </i> yyy:
+              <a href="javascript:void(0)">xxx</a>
+            </p>-->
+            <h3 class="price mt-5">Total price: {{ totalPrice | currency: 'N' }}</h3>
+            <p class="info-text">Total quantity: {{ totalQuantity }}</p>
+            <div class="bottom-content">
+              <div class="row align-items-end">
+                <div class="col-lg-4 col-md-4 col-12">
+                  <div class="button cart-button">
+                    <flutterwave-make-payment
+                      [public_key]="publicKey"
+                      [amount]="totalPrice"
+                      currency='NGN'
+                      payment_options="card"
+                      redirect_url=""
+                      text="Pay Now"
+                      [customer]="customerDetails"
+                      [customizations]="customizations"
+                      [meta]="meta"
+                      [tx_ref]="generateReference()"
+                      (callback)="makePaymentCallback($event)"
+                      (close)="closedPaymentModal()" >
+                    </flutterwave-make-payment>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
-</div>
+</section>
+<!-- End Item Details -->
