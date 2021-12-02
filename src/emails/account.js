@@ -20,7 +20,30 @@ const sendCancelEmail = (email, firstName) => {
     })
 }
 
+const sendOrderEmail = (email, cartItems) => {
+
+    let cartDisplay = '';
+    cartItems.forEach(el => {
+        const tableRow = `<tr style="border: solid 1px #ccc">
+                            <td>${ el.name }</td> 
+                            <td>${ el.unitPrice }</td> 
+                            <td>${ el.quantity }</td>
+                        </tr>`
+        cartDisplay += tableRow;
+    });
+
+    sgMail.send({
+        to: email,
+        cc: 'tundereuben@yahoo.com',
+        from: 'tundeogunjimi@gmail.com',
+        subject: 'Order complete',
+        // text: 'todo',
+        html: '<html> <body> <table>' + cartDisplay + '</table> </body> </html>'
+    })
+}
+
 module.exports = {
     sendWelcomeEmail,
-    sendCancelEmail
+    sendCancelEmail,
+    sendOrderEmail
 }

@@ -27,17 +27,58 @@ const userSchema = new mongoose.Schema({
             }
         }
     },
-    password: {
+    phone: {
        type: String,
-        required: true,
         trim: true, 
-        minlength: 7,
-        validate(value) {
-            if (value.toLowerCase().includes('password')) {
-                throw new Error('You cannot use the string password');
-            }
-        }
+        minlength: 11,
     },
+    password: {
+      type: String,
+       required: true,
+       trim: true, 
+       minlength: 7,
+       validate(value) {
+           if (value.toLowerCase().includes('password')) {
+               throw new Error('You cannot use the string password');
+           }
+       }
+   },
+  billingAddress: {
+    street: {
+        type: String,
+        trim: true
+    },
+    city: {
+        type: String,
+        trim: true
+    },
+    state: {
+        type: String,
+        trim: true
+    },
+    country: {
+        type: String,
+        trim: true
+    }
+  },
+  shippingAddress: {
+      street: {
+          type: String,
+          trim: true
+      },
+      city: {
+          type: String,
+          trim: true
+      },
+      state: {
+          type: String,
+          trim: true
+      },
+      country: {
+          type: String,
+          trim: true
+      }
+  },
     tokens: [{
         token: {
           type: String,
@@ -46,7 +87,7 @@ const userSchema = new mongoose.Schema({
       }]
 }, {
     timestamps: true
-});
+}); 
 
 userSchema.methods.generateAuthToken = async function () {
     const user = this

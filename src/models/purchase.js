@@ -7,7 +7,7 @@ const purchaseSchema = new mongoose.Schema({
        required: true,
        ref: 'User'
     }, 
-    billingAddres: {
+    billingAddress: {
         street: {
             type: String,
         },
@@ -19,13 +19,21 @@ const purchaseSchema = new mongoose.Schema({
         },
         country: {
             type: String,
-        },
-        zipcode: {
-            type: String,
         }
     },
     shippingAddress: {
-
+        street: {
+            type: String,
+        },
+        city: {
+            type: String,
+        },
+        state: {
+            type: String,
+        },
+        country: {
+            type: String,
+        }
     },
     order: {
         orderTrackingNumber: {

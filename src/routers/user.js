@@ -33,7 +33,6 @@ router.get('/users/me', auth, async (req, res) => {
 })
 
 router.post('/users/logout', auth, async (req, res) => {
-    console.log(`req >>> `, req);
     try {
         req.user.tokens = req.user.tokens.filter((token) => {
             return token.token !== req.token
@@ -60,7 +59,7 @@ router.post('/users/logoutAll', auth, async (req, res) => {
 
 router.patch('/users/me', auth, async (req, res) => {
     const updates = Object.keys(req.body)
-    const allowedUpdates = ['firstName', 'lastName', 'email', 'password']
+    const allowedUpdates = ['firstName', 'lastName', 'email', 'password', 'phone']
     const isValidOperation = updates.every((update) => allowedUpdates.includes(update))
 
     if (!isValidOperation) {
@@ -86,7 +85,22 @@ router.delete('/users/me', auth, async (req, res) => {
     } catch (e) {
         res.status(500).send()
     }
-})
+});
+
+// send order to admin for processing
+// router.post('/placeOrder', auth, async (req, res) => {
+//     const cartItems = JSON.stringify(req.body);
+//     console.log(`user`, req.user.email)
+
+//     try {
+//         // await user.save();
+//         sendOrderEmail(req.user.email);
+//         // const token = await user.generateAuthToken();
+//         res.status(201).send({ user, cartItems });
+//     } catch (e) {
+//         res.status(400).send(e);
+//     }
+// });
 
 module.exports = router;
 

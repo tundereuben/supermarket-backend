@@ -1,6 +1,8 @@
 const express = require('express');
 const Purchase = require('../models/purchase');
+const User = require('../models/user');
 const auth = require('../middleware/authenticate');
+const { sendOrderEmail } = require('../emails/account');
 const router = new express.Router();
 
 router.post('/purchase', auth, async (req, res) => {
@@ -67,16 +69,28 @@ router.patch('/purchase/:id', auth, async (req, res) => {
     }
 });
 
-router.delete('/cart/:id', auth, async (req, res) => {
+router.delete('/purchase/:id', auth, async (req, res) => {
     try {
-        const cartItem = await Cart.findOneAndDelete({ _id: req.params.id, owner: req.user._id});
+        const purchase = await Purchase.findOneAndDelete({ _id: req.params.id, owner: req.user._id});
 
-        if (!cartItem) {
+        if (!purchase) {
             return res.status(404).send();
         }
-        res.send(cartItem)
+        res.send(purchase)
     } catch (e) {
         res.status(500).send();
+    }
+});
+
+router.post('/placeOrder', auth, async (req, res) => {
+    const cartItems = req.body;
+    const user = req.user
+
+    try {
+        sendOrderEmail( user.email, cartItems);
+        res.status(201).send({ user, cartItems });
+    } catch (e) {
+        res.status(400).send(e);
     }
 });
 
