@@ -87,20 +87,5 @@ router.delete('/users/me', auth, async (req, res) => {
     }
 });
 
-// send order to admin for processing
-// router.post('/placeOrder', auth, async (req, res) => {
-//     const cartItems = JSON.stringify(req.body);
-//     console.log(`user`, req.user.email)
-
-//     try {
-//         // await user.save();
-//         sendOrderEmail(req.user.email);
-//         // const token = await user.generateAuthToken();
-//         res.status(201).send({ user, cartItems });
-//     } catch (e) {
-//         res.status(400).send(e);
-//     }
-// });
-
 module.exports = router;
 

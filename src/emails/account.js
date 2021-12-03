@@ -5,7 +5,7 @@ sgMail.setApiKey(process.env.SENGRID_API_KEY)
 const sendWelcomeEmail = (email, firstName) => {
     sgMail.send({
         to: email,
-        from: 'tundeogunjimi@gmail.com',
+        from: 'no-reply@supermarketathome.com.ng',
         subject: 'Thanks for signing up!',
         text: `Welcome to the app, ${firstName}. Let me know how you get along with the app.`,
     })
@@ -14,7 +14,7 @@ const sendWelcomeEmail = (email, firstName) => {
 const sendCancelEmail = (email, firstName) => {
     sgMail.send({
         to: email,
-        from: 'tundeogunjimi@gmail.com',
+        from: 'no-reply@supermarketathome.com.ng',
         subject: 'Sorry to see you go!',
         text: `${firstName}, it's painful to see you go. Tell me why you left.`,
     })
@@ -34,8 +34,8 @@ const sendOrderEmail = (email, cartItems) => {
 
     sgMail.send({
         to: email,
-        cc: 'tundereuben@yahoo.com',
-        from: 'tundeogunjimi@gmail.com',
+        bcc: 'abiolaabisoye98@gmail.com',
+        from: 'no-reply@supermarketathome.com.ng',
         subject: 'Order complete',
         // text: 'todo',
         html: '<html> <body> <table>' + cartDisplay + '</table> </body> </html>'
