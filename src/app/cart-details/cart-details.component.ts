@@ -48,7 +48,6 @@ export class CartDetailsComponent implements OnInit {
   }
 
   checkout() {
-    console.log(this.cartItems, this.totalPrice, this.totalQuantity);
     this.router.navigate(['checkout']);
   }
 

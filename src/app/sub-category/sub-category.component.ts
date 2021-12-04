@@ -32,7 +32,7 @@ export class SubCategoryComponent implements OnInit {
     { name: 'beverages and drinks', url: 'beverages-and-drinks'},
     { name: 'beans, rice and grains', url: 'beans-rice-grains'},
     { name: 'custard, syrup and pap', url: 'custard-syrup-pap'},
-    { name: 'cake, bake, pancake and bread', url: 'cake-beancake-pancake-bread'},
+    { name: 'cakes and bakes', url: 'cake-beancake-pancake-bread'},
     { name: 'canned food', url: 'canned-food'},
     { name: 'dairy,cheese,eggs', url: 'dairy-cheese-egg'},
     { name: 'ham, sausages and hot dogs', url: 'ham-sausage-hotdog'},
@@ -78,11 +78,13 @@ export class SubCategoryComponent implements OnInit {
     { name: 'nylon bags and carry sacks', url: 'nylon-bags-and-carry-sacks'},
     { name: 'food containers', url: 'food-containers'},
 
-    { name: 'birthday gift', url: 'birthday-gift'},
-    { name: 'christmas gift', url: 'christmas-gift'},
+    { name: 'birthday gifts', url: 'birthday-gift'},
+    { name: 'christmas gifts', url: 'christmas-gift'},
     { name: 'party supplies', url: 'party-supplies'},
     { name: 'hampers', url: 'hampers'},
     { name: 'special occasion', url: 'special-occasion'},
+
+
   ];
 
   constructor(

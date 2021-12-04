@@ -30,7 +30,7 @@ export class LoginComponent implements OnInit {
     if (this.tokenStorage.getToken()) {
       this.isLoggedIn = true;
       this.user = this.tokenStorage.getUser().user;
-      this.router.navigate(['checkout']);
+      this.router.navigate(['search'], { queryParams: { search: '' }});
     }
   }
 
@@ -49,7 +49,8 @@ export class LoginComponent implements OnInit {
         this.tokenStorage.saveUser(data);
         this.isLoginFailed = false;
         this.isLoggedIn = true;
-        this.router.navigate(['/checkout']);
+        sessionStorage.setItem('reload', JSON.stringify(true));
+        this.router.navigate(['/search'], {queryParams: { search: ''}});
       }, err => {
         this.errorMessage = err.error.message;
         this.isLoginFailed = true;

@@ -21,6 +21,7 @@ const routes: Routes = [
   { path: 'cart-details', component: CartDetailsComponent },
   { path: 'search', component: SearchComponent },
   { path: 'checkout', component: CheckoutComponent },
+  { path: 'user-details', component: CheckoutComponent },
   { path: 'payment', component: PaymentComponent },
 
   { path: 'register', component: RegisterComponent },

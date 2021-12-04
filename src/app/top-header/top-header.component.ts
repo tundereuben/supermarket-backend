@@ -29,10 +29,6 @@ export class TopHeaderComponent implements OnInit {
   ngOnInit() {
     this.createSearchForm();
     this.getUser();
-    /*this.activatedRoute.data
-      .subscribe(data => {
-        console.log(`activatedRoute Data >>>`, data.link);
-      });*/
   }
 
   getUser() {

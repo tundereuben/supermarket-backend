@@ -22,6 +22,7 @@ export class CheckoutComponent implements OnInit {
   public isLoggedIn = false;
   public user: User;
   public purchase: any;
+  public token: string;
 
   constructor(
     private fb: FormBuilder,
@@ -37,9 +38,8 @@ export class CheckoutComponent implements OnInit {
     this.reviewCartDetails();
     this.getUser();
 
-    this.purchaseService.getPurchases()
+    /*this.purchaseService.getPurchases()
       .subscribe(data => {
-        console.log(`Existing purchase >>>`, data);
         if (data) {
           this.purchase = data[0];
           this.checkoutFormGroup.patchValue({
@@ -55,13 +55,14 @@ export class CheckoutComponent implements OnInit {
             }
           });
         }
-      });
+      });*/
   }
 
   getUser() {
     if (this.tokenStorage.getToken()) {
       this.isLoggedIn = true;
       this.user = this.tokenStorage.getUser().user;
+      this.token = this.tokenStorage.getToken();
       this.patchUserDetails();
     } else {
       this.router.navigate(['login']);
@@ -73,10 +74,20 @@ export class CheckoutComponent implements OnInit {
       customer: {
         firstName: this.user.firstName,
         lastName: this.user.lastName,
-        email: this.user.email
+        email: this.user.email,
+        phone: this.user.phone
       },
       shippingAddress: {
-        country: 'Nigeria'
+        street: this.user.shippingAddress.street,
+        city: this.user.shippingAddress.city,
+        state: this.user.shippingAddress.state,
+        country: this.user.shippingAddress.country,
+      },
+      billingAddress: {
+        street: this.user.billingAddress.street,
+        city: this.user.billingAddress.city,
+        state: this.user.billingAddress.state,
+        country: this.user.billingAddress.country,
       }
     });
   }
@@ -87,6 +98,7 @@ export class CheckoutComponent implements OnInit {
         firstName: [''],
         lastName: [''],
         email: [''],
+        phone: ['']
       }),
       shippingAddress: this.fb.group({
         street: [''],
@@ -115,12 +127,13 @@ export class CheckoutComponent implements OnInit {
   checkout() {
     const shippingAddress = this.checkoutFormGroup.get('shippingAddress').value;
     const billingAddress = this.checkoutFormGroup.get('billingAddress').value;
+    const customer = this.checkoutFormGroup.get('customer').value;
 
     const dataToPost: User = {
-      firstName: this.user.firstName,
-      lastName: this.user.lastName,
-      email: this.user.email,
-      phone: this.user.phone,
+      firstName: customer.firstName,
+      lastName: customer.lastName,
+      email: customer.email,
+      phone: customer.phone,
       shippingAddress: {
         ...shippingAddress
       },
@@ -128,8 +141,19 @@ export class CheckoutComponent implements OnInit {
         ...billingAddress
       }
     };
-    console.log(dataToPost);
-    this.router.navigate(['payment']);
+
+    // todo: check if form was touched before updating user
+    this.authService.updateUser(dataToPost)
+      .subscribe(data => {
+        const userData = {
+          token: this.token,
+          user: {
+            ...data
+          }
+        };
+        this.tokenStorage.saveUser(userData);
+        this.router.navigate(['payment']);
+      });
   }
 
   reviewCartDetails() {
@@ -142,6 +166,10 @@ export class CheckoutComponent implements OnInit {
     );
 
     this.cartService.computeCartTotals();
+  }
+
+  gotoSearch() {
+    this.router.navigate(['search'], { queryParams: { search: ''}});
   }
 
 

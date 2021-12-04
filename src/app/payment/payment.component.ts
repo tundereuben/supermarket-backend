@@ -92,12 +92,12 @@ import {PurchaseService} from '../services/purchase.service';
   getUser() {
     if (this.tokenStorage.getToken()) {
       this.isLoggedIn = true;
-      this.user = this.tokenStorage.getUser().user;
+      this.user = this.tokenStorage.getUser();
       this.patchUserDetails();
       this.customerDetails = {
         name: `${this.user.firstName} ${this.user.lastName}`,
         email: this.user.email,
-        phone_number: '08100000000' // todo: add phone number to user
+        phone_number: this.user.phone
       };
     } else {
       this.router.navigate(['login']);
