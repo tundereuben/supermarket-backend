@@ -3,8 +3,8 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable, Subject} from 'rxjs';
 import {User} from '../models/User';
 
-// const AUTH_API = 'https://lucent-supermarket-api.herokuapp.com/';
-const AUTH_API = 'http://localhost:3000/';
+const AUTH_API = 'https://lucent-supermarket-api.herokuapp.com/';
+// const AUTH_API = 'http://localhost:3000/';
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json '})
 };
