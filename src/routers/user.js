@@ -58,13 +58,14 @@ router.post('/users/logoutAll', auth, async (req, res) => {
 
 
 router.patch('/users/me', auth, async (req, res) => {
-    const updates = Object.keys(req.body)
-    const allowedUpdates = ['firstName', 'lastName', 'email', 'password', 'phone']
-    const isValidOperation = updates.every((update) => allowedUpdates.includes(update))
+    const updates = Object.keys(req.body);
+    // const allowedUpdates = ['firstName', 'lastName', 'email', 'password', 'phone', 'shippingAdddress', 'billingAddress'];
+    // const isValidOperation = updates.every((update) => allowedUpdates.includes(update));
 
-    if (!isValidOperation) {
-        return res.status(400).send({ error: 'Invalid updates'})
-    }
+    // if (!isValidOperation) {
+    //     return res.status(400).send({ error: 'Invalid updates'})
+    // }
+
     try {   
 
         updates.forEach((update) => req.user[update] = req.body[update])
