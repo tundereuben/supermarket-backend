@@ -23,7 +23,7 @@
     </div>
 
 
-    <table class="table text-sm-start">
+    <table class="table text-sm-start" style="width:100%">
       <thead>
       <tr>
         <th scope="col">Image</th>
@@ -34,23 +34,21 @@
         <th scope="col">Display</th>
         <th scope="col">Price</th>
         <th scope="col">Promo</th>
-        <th scope="col">Desc</th>
         <th scope="col">Options</th>
       </tr>
       </thead>
       <tbody>
-      <tr *ngFor="let product of products | slice: (page-1) * pageSize : page * pageSize">
+      <tr *ngFor="let product of products">
         <th scope="row">
           <img src="../../../{{ product.imageUrl }}" alt="" height="50px" width="50px">
         </th>
         <th>{{ product.name | titlecase }}</th>
         <td>{{ product.category | titlecase }}</td>
         <td>{{ product.subCategory | titlecase }}</td>
-        <td class="text-sm-start">{{ product.imageUrl }}</td>
+        <td class="text-sm-start">{{ product.imageUrl | slice: 14:50 }}</td>
         <td>{{ product.display }}</td>
         <td>{{ product.price | currency: 'N' }}</td>
         <td>{{ product.promo }}</td>
-        <td>{{ product.desc }}</td>
         <td>
           <button (click)="editProduct(product)" type="button" class="btn btn-sm btn-primary mr-2" data-bs-toggle="modal" data-bs-target="#editModal">
             <i class="lni lni-pencil"></i>
@@ -61,25 +59,21 @@
         </td>
       </tr>
       <tr>
-        <!--pagination-->
-        <ngb-pagination
+        <!--<ngb-pagination
           [(page)]="page"
           [pageSize]="pageSize"
           [collectionSize]="products.length">
-        </ngb-pagination>
-        <!--end pagination-->
+        </ngb-pagination>-->
       </tr>
       </tbody>
     </table>
   </div>
 
-  <!--pagination-->
-  <ngb-pagination
+  <!--<ngb-pagination
     [(page)]="page"
     [pageSize]="pageSize"
     [collectionSize]="products.length">
-  </ngb-pagination>
-  <!--end pagination-->
+  </ngb-pagination>-->
 </section>
 <!-- End Trending Product Area -->
 
@@ -168,11 +162,11 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <img src="{{this.productToDelete.imageUrl}}" alt="" height="100px" style="float: left">
+        <img src="{{this.productToDelete?.imageUrl}}" alt="" height="100px" style="float: left">
         <p class="">
-          <span class="fw-bold">Product name </span>: {{ this.productToDelete.name | titlecase }} <br>
-          <span class="fw-bold">Category </span>: {{ this.productToDelete.category | titlecase }} <br>
-          <span class="fw-bold">Sub Category </span>: {{ this.productToDelete.subCategory | titlecase}}
+          <span class="fw-bold">Product name </span>: {{ this.productToDelete?.name | titlecase }} <br>
+          <span class="fw-bold">Category </span>: {{ this.productToDelete?.category | titlecase }} <br>
+          <span class="fw-bold">Sub Category </span>: {{ this.productToDelete?.subCategory | titlecase}}
         </p>
       </div>
       <div class="modal-footer">

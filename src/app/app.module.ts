@@ -24,6 +24,7 @@ import { CheckoutComponent } from './checkout/checkout.component';
 import { PaymentComponent } from './payment/payment.component';
 import {FlutterwaveModule} from 'flutterwave-angular-v3';
 import {authInterceptorProviders} from './_helpers/auth.interceptors';
+import {AuthGuardService} from './services/auth-guard.service';
 
 @NgModule({
   declarations: [
@@ -53,7 +54,7 @@ import {authInterceptorProviders} from './_helpers/auth.interceptors';
     NgbPaginationModule,
     FlutterwaveModule
   ],
-  providers: [ authInterceptorProviders ],
+  providers: [ authInterceptorProviders, AuthGuardService ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

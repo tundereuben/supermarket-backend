@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {AuthService} from '../../services/auth.service';
-import {Router} from '@angular/router';
+import {ActivatedRoute, Params, Router} from '@angular/router';
 import {User} from '../../models/User';
 import {TokenStorageService} from '../../services/token-storage.service';
+import {Observable} from 'rxjs';
 
 @Component({
   selector: 'app-login',
@@ -17,15 +18,19 @@ export class LoginComponent implements OnInit {
   public isLoginFailed = false;
   public errorMessage = '';
   public user: User;
+  private retUrl: string;
 
   constructor(
     private fb: FormBuilder,
     private authService: AuthService,
     private router: Router,
-    private tokenStorage: TokenStorageService
+    private tokenStorage: TokenStorageService,
+    private route: ActivatedRoute
   ) { }
 
   ngOnInit() {
+    const params$ = this.route.queryParams
+      .subscribe(data => this.retUrl = data.retUrl);
     this.createLoginForm();
     if (this.tokenStorage.getToken()) {
       this.isLoggedIn = true;
@@ -50,7 +55,7 @@ export class LoginComponent implements OnInit {
         this.isLoginFailed = false;
         this.isLoggedIn = true;
         sessionStorage.setItem('reload', JSON.stringify(true));
-        this.router.navigate(['/search'], {queryParams: { search: ''}});
+        this.router.navigate([`/${this.retUrl}`]/*, {queryParams: { search: ''}}*/);
       }, err => {
         this.errorMessage = err.error.message;
         this.isLoginFailed = true;
