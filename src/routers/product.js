@@ -1,8 +1,9 @@
 const express = require('express');
 const Product = require('../models/product');
+const auth = require('../middleware/authenticate');
 const router = new express.Router();
 
-router.post('/products', async (req, res) => {
+router.post('/products', auth, async (req, res) => {
     const product = new Product(req.body);
 
     try {
@@ -82,7 +83,7 @@ router.get('/search', async (req, res) => {
     }
 });
 
-router.patch('/products/:id', async (req, res) => {
+router.patch('/products/:id', auth, async (req, res) => {
     const updates = Object.keys(req.body);
     const allowedUpdates = ['name', 'category', 'subCategory', 'imageUrl', 'price', 'display', 'promo', 'desc'];
     const isValidOperation = updates.every((update) => allowedUpdates.includes(update));
@@ -108,7 +109,7 @@ router.patch('/products/:id', async (req, res) => {
     }
 });
 
-router.delete('/products/:id', async (req, res) => {
+router.delete('/products/:id', auth, async (req, res) => {
     try {
         const product = await Product.findByIdAndDelete(req.params.id);
         // const product = await Product.findOneAndDelete({ id: req.params.id });

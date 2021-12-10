@@ -43,6 +43,15 @@ const userSchema = new mongoose.Schema({
            }
        }
    },
+   role: {
+    type: String,
+    trim: true,
+    default: 'USER'
+   },
+   status: {
+     type: String,
+     default: 'inactive'
+   },
   billingAddress: {
     street: {
         type: String,
