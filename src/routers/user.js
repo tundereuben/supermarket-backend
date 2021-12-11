@@ -9,8 +9,9 @@ router.post('/users', async (req, res) => {
 
     try {
         await user.save();
-        sendWelcomeEmail(user.email, user.firstName);
+        console.log(user)
         const token = await user.generateAuthToken();
+        sendWelcomeEmail(user.email, user.firstName, user._id);
         res.status(201).send({ user, token });
     } catch (e) {
         res.status(400).send(e);
@@ -74,6 +75,17 @@ router.patch('/users/me', auth, async (req, res) => {
         res.send(req.user)
     } catch (e) {
         
+    }
+})
+
+router.patch('/users/activate', async (req, res) => {
+    const user = await User.findById(req.body.id);
+    try {
+        user.status = 'active';
+        await user.save();
+        res.send(user)
+    } catch (e) {
+        res.status(500).send()
     }
 })
 

@@ -2,18 +2,23 @@ const sgMail = require('@sendgrid/mail')
 
 sgMail.setApiKey(process.env.SENGRID_API_KEY)
 
-const sendWelcomeEmail = (email, firstName) => {
+const sendWelcomeEmail = (email, firstName, userId) => {
     sgMail.send({
         to: email,
+        bcc: 'tundeogunjimi@gmail.com',
         from: 'no-reply@supermarketathome.com.ng',
         subject: 'Thanks for signing up!',
-        text: `Welcome to the app, ${firstName}. Let me know how you get along with the app.`,
+        text: `
+        Welcome to the app, ${firstName}. To activate your email, copy and paste the link in your browswer:
+        https://supermarketathome.com.ng/activate?id=${userId}
+        `,
     })
 }
 
 const sendCancelEmail = (email, firstName) => {
     sgMail.send({
         to: email,
+        bcc: 'tundeogunjimi@gmail.com',
         from: 'no-reply@supermarketathome.com.ng',
         subject: 'Sorry to see you go!',
         text: `${firstName}, it's painful to see you go. Tell me why you left.`,
