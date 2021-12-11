@@ -65,9 +65,6 @@ export class ProductDashboardComponent implements OnInit {
     this.service.searchProducts('')
       .subscribe(data => {
         this.products = data;
-        /*this.productsLength = data.length;
-        console.log(this.products.length);
-        console.log(`products >>> `, (this.productsLength / 10));*/
       });
   }
 

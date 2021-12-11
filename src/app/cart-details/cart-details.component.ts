@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {CartItem} from '../common/cart-item';
 import {CartService} from '../services/cart.service';
-import {Router} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 
 @Component({
   selector: 'app-cart-details',
@@ -13,13 +13,20 @@ export class CartDetailsComponent implements OnInit {
   public cartItems: CartItem[] = [];
   public totalPrice = 0;
   public totalQuantity = 0;
+  public shippingFee = 1000;
+  private retUrl: string;
 
   constructor(
     private cartService: CartService,
-    private router: Router
+    private router: Router,
+    private route: ActivatedRoute
   ) { }
 
   ngOnInit() {
+    this.route.queryParams
+      .subscribe(data => {
+        this.retUrl = data.retUrl;
+      });
     this.listCartDetails();
   }
 
@@ -48,7 +55,8 @@ export class CartDetailsComponent implements OnInit {
   }
 
   checkout() {
-    this.router.navigate(['checkout']);
+    sessionStorage.setItem('cartItems', JSON.stringify(this.cartItems));
+    this.router.navigate(['checkout'], { queryParams: {retUrl: this.retUrl } } );
   }
 
 }

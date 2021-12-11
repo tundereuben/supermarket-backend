@@ -1,3 +1,75 @@
+<section class="item-details section">
+  <div class="container">
+    <div class="row my-2">
+      <div class="top-area col-sm-8">
+        <div class="row">
+          <p class="text-primary fw-bold lead">Customer Details</p>
+          <div class="col-sm-4">
+            <p>Full name <br>{{ user.firstName }} {{ user.lastName }}</p>
+          </div>
+          <div class="col-sm-4">
+            <p>Phone number <br> {{ user.phone }} </p>
+          </div>
+          <div class="col-sm-4">
+            <p>Email <br>{{ user.email }}</p>
+          </div>
+        </div>
+
+        <hr>
+        <div class="row">
+          <p class="text-primary fw-bold lead">Shipping Address</p>
+          <div class="col-sm-3">
+            <p> Street address <br> {{ user.shippingAddress.street }}</p>
+          </div>
+          <div class="col-sm-3">
+            <p>City <br> {{ user.shippingAddress.city }}</p>
+          </div>
+          <div class="col-sm-3">
+            <p>State <br> {{ user.shippingAddress.state }}</p>
+          </div>
+          <div class="col-sm-3">
+            <p>Country <br>{{ user.shippingAddress.country }}</p>
+          </div>
+        </div>
+
+        <hr>
+        <div class="row">
+          <p class="text-primary fw-bold lead">Billing Address</p>
+          <div class="col-sm-3">
+            <p> Street address <br> {{ user.billingAddress.street }}</p>
+          </div>
+          <div class="col-sm-3">
+            <p>City <br> {{ user.billingAddress.city }}</p>
+          </div>
+          <div class="col-sm-3">
+            <p>State <br> {{ user.billingAddress.state }}</p>
+          </div>
+          <div class="col-sm-3">
+            <p>Country <br>{{ user.billingAddress.country }}</p>
+          </div>
+        </div>
+        <hr>
+        <button (click)="gotoSearch()" type="submit" class="btn btn-primary my-3">Continue shopping</button>
+        <button type="submit" class="btn btn-outline-primary" style="float: right">Update user info</button>
+      </div>
+
+      <div class="top-area col-sm-4">
+        <p class="text-primary fw-bold lead">Review Your Order</p>
+        <ng-container *ngIf="totalQuantity > 0">
+            <p>Total Price: {{ totalPrice | currency: 'N'  }}</p>
+            <p>Shipping: {{ shippingFee | currency: 'N' }}</p>
+            <p>You pay: {{ totalPrice + 1000 | currency: 'N' }}</p>
+          <div class="row">
+            <div class="col-sm-12">
+              <button (click)="checkout()" type="submit" class="btn btn-success my-3" style="width: 100%">Checkout</button>
+            </div>
+          </div>
+        </ng-container>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- Start Item Details -->
 <section class="item-details section">
   <div class="container">
@@ -73,30 +145,6 @@
             </div>
           </div>
         </fieldset>
-
-        <ng-container *ngIf="totalQuantity > 0; else continueShopping">
-          <fieldset class="border p-2 my-2">
-            <legend class="w-auto">Review Your Order</legend>
-            <p>Total Quantity: {{ totalQuantity }}</p>
-            <p>Shipping: FREE</p>
-            <p>Total Price: {{ totalPrice | currency: 'N'}}</p>
-          </fieldset>
-          <div class="row">
-            <div class="col-md-3">
-              <button (click)="gotoSearch()" type="submit" class="btn btn-primary my-3" style="width: 100%">Continue Shopping</button>
-            </div>
-            <div class="col-md-3 offset-md-6">
-              <button (click)="checkout()" type="submit" class="btn btn-success my-3" style="width: 100%">Checkout</button>
-            </div>
-          </div>
-        </ng-container>
-        <ng-template #continueShopping>
-          <div class="row">
-            <div class="col-md-3 offset-md-9">
-              <button (click)="gotoSearch()" type="submit" class="btn btn-primary my-3" style="width: 100%">Continue Shopping</button>
-            </div>
-          </div>
-        </ng-template>
       </form>
     </div>
   </div>

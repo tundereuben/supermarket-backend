@@ -1,5 +1,5 @@
-<div class="container" *ngIf="cartItems.length>0">
-  <table class="table lead">
+<div class="container table-responsive" *ngIf="cartItems.length>0">
+  <table class="table">
     <thead>
     <tr>
       <th scope="col"></th>
@@ -37,6 +37,7 @@
     <tr>
       <td></td>
       <td></td>
+      <td></td>
       <td class="fw-bold text-sm-end" colspan="2">
         Grand Total <br>
         Shipping <br>
@@ -44,18 +45,18 @@
       </td>
       <td class=" fw-bold text-sm-start">
          {{ totalPrice | currency: 'N'}} <br>
-        <strong>FREE</strong> <br>
-        {{ totalPrice | currency: 'N' }} <br> <br>
-      </td>
-      <td>
-        <a (click)="checkout()" class="btn btn-success" style="width: 100%">Checkout</a>
+        <strong>{{ shippingFee | currency: 'N' }}</strong> <br>
+        {{ totalPrice + shippingFee | currency: 'N' }} <br> <br>
       </td>
     </tr>
     </tbody>
   </table>
+  <div class="col-sm-2 offset-sm-10 my-2">
+    <a (click)="checkout()" class="btn btn-success" style="width: 100%"> Proceed to Checkout</a>
+  </div>
 
 </div>
 
-<div *ngIf="cartItems.length===0" class="container my-2">
-  <p class="lead alert alert-warning">Your shopping cart is empty</p>
+<div *ngIf="cartItems.length===0" class="container my-2 text-sm-center">
+  <p class="lead alert alert-warning">Your shopping cart is empty!</p>
 </div>

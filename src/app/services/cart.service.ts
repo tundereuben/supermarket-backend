@@ -14,6 +14,11 @@ export class CartService {
 
   constructor() { }
 
+  getCartItems() {
+    this.cartItems = JSON.parse(sessionStorage.getItem('cartItems'));
+    // sessionStorage.removeItem('cartItems');
+  }
+
   addToCart(theCartItem: CartItem) {
     let alreadyExistsInCart = false;
     let existingCartItem: CartItem;

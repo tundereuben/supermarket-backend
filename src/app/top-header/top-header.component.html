@@ -56,25 +56,9 @@
           </div>
         </div>
         <div class="col-lg-4 col-md-4 col-12">
-          <div class="top-end">
-            <div class="user">
-              <i class="lni lni-user"></i>
-              Hello {{ user?.firstName }}
-            </div>
-            <ul *ngIf="!isLoggedIn" class="user-login">
-              <li>
-                <a routerLink="/login">Sign In</a>
-              </li>
-              <li>
-                <a routerLink="/register">Register</a>
-              </li>
-            </ul>
-            <ul *ngIf="isLoggedIn" class="user-login">
-              <li>
-                <a (click)="logout()" href="">Logout</a>
-              </li>
-            </ul>
-          </div>
+
+          <app-login-status></app-login-status>
+
         </div>
       </div>
     </div>
@@ -88,7 +72,7 @@
           <!-- Start Header Logo -->
           <a class="navbar-brand" routerLink="">
             <!--<img src="../../assets/images/logo/logo.svg" alt="Logo">-->
-            <span id="logo" class="fs-5 fw-bold text-white">Supermarket@Home</span>
+            <span id="logo" class="fs-5 fw-bold text-white"><small>Supermarket@Home</small></span>
           </a>
           <!-- End Header Logo -->
         </div>
@@ -129,7 +113,7 @@
                 </span>
               </h3>
             </div>
-            <a href='https://wa.me/+2348102984114' target='_blank' class="text-dark">Live chat <i class= "lni lni-whatsapp"></i></a>
+            <!--<a href='https://wa.me/+2348102984114' target='_blank' class="text-dark">Live chat <i class= "lni lni-whatsapp"></i></a>-->
 
             <app-cart-status></app-cart-status>
 

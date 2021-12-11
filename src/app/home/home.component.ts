@@ -14,15 +14,12 @@ import {CartItem} from '../common/cart-item';
 export class HomeComponent implements OnInit {
   public items: Product[];
   public categories: any[];
-  public showAlert: boolean;
 
   constructor(
     private productService: ProductService,
     private router: Router,
     private cartService: CartService
-  ) {
-    this.showAlert = false;
-  }
+  ) { }
 
   ngOnInit() {
 
@@ -51,15 +48,6 @@ export class HomeComponent implements OnInit {
           category.products = data;
         });
     });
-  }
-
-  addToCart(product: Product) {
-    const cartItem = new CartItem(product);
-    this.cartService.addToCart(cartItem);
-    this.showAlert = true;
-    setTimeout(() => {
-      this.showAlert = false;
-    }, 1000);
   }
 
   gotoProduct(product: Product) {

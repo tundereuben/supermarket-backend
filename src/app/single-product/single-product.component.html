@@ -1,6 +1,9 @@
 <!-- Start Item Details -->
 <section class="item-details section">
   <div class="container">
+    <div *ngIf="showAlert" class="alert alert-success text-sm-center">
+      <strong>{{ product.name  | titlecase }}</strong> added to cart.
+    </div>
     <div class="top-area" *ngIf="product$ | async as product">
       <div class="row align-items-center">
         <div class="col-lg-6 col-md-12 col-12">

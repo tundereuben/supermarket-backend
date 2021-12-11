@@ -18,10 +18,10 @@ export class CheckoutComponent implements OnInit {
   public checkoutFormGroup: FormGroup;
   public totalPrice = 0;
   public totalQuantity = 0;
+  public shippingFee = 1000;
 
   public isLoggedIn = false;
   public user: User;
-  public purchase: any;
   public token: string;
 
   constructor(
@@ -30,38 +30,25 @@ export class CheckoutComponent implements OnInit {
     private cartService: CartService,
     private authService: AuthService,
     private tokenStorage: TokenStorageService,
-    private purchaseService: PurchaseService
   ) { }
 
   ngOnInit() {
+    const reload = JSON.parse(sessionStorage.getItem('reload'));
+    if (reload) {
+      sessionStorage.setItem('reload', JSON.stringify(false));
+      location.reload();
+    }
+    this.cartService.getCartItems();
     this.createCheckoutForm();
     this.reviewCartDetails();
     this.getUser();
-
-    /*this.purchaseService.getPurchases()
-      .subscribe(data => {
-        if (data) {
-          this.purchase = data[0];
-          this.checkoutFormGroup.patchValue({
-            shippingAddress: {
-              street: this.purchase.shippingAddress.street,
-              city: this.purchase.shippingAddress.city,
-              state: this.purchase.shippingAddress.state,
-            },
-            billingAddress: {
-              street: this.purchase.billingAddress.street,
-              city: this.purchase.billingAddress.city,
-              state: this.purchase.billingAddress.state,
-            }
-          });
-        }
-      });*/
   }
 
   getUser() {
     if (this.tokenStorage.getToken()) {
       this.isLoggedIn = true;
       this.user = this.tokenStorage.getUser().user;
+      console.log(`current user >>>>`, this.user)
       this.token = this.tokenStorage.getToken();
       this.patchUserDetails();
     } else {

@@ -14,12 +14,16 @@ import {CartItem} from '../common/cart-item';
 export class SingleProductComponent implements OnInit {
 
   public product$: Observable<Product>;
+  public product: Product;
+  public showAlert: boolean;
 
   constructor(
     private activatedRoute: ActivatedRoute,
     private productService: ProductService,
     private cartService: CartService
-  ) { }
+  ) {
+    this.showAlert = false;
+  }
 
   ngOnInit() {
     this.activatedRoute.params
@@ -30,9 +34,13 @@ export class SingleProductComponent implements OnInit {
 
   addToCart(product: Product) {
     // console.log(`Adding to cart: ${product.name}, ${product.price}`);
+    this.product = product;
     const theCartItem = new CartItem(product);
     this.cartService.addToCart(theCartItem);
-    // todo: show success when item is added to cart
+    this.showAlert = true;
+    setTimeout(() => {
+      this.showAlert = false;
+    }, 2000);
   }
 
 }

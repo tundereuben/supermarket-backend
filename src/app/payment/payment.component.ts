@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {User} from '../models/User';
-import {Router} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {CartService} from '../services/cart.service';
 import {AuthService} from '../services/auth.service';
 import {TokenStorageService} from '../services/token-storage.service';
@@ -19,14 +19,17 @@ import {PurchaseService} from '../services/purchase.service';
   public paymentForm: FormGroup;
   public totalPrice = 0;
   public totalQuantity = 0;
+  public shippingFee = 1000;
   public cartItems: CartItem[] = [];
 
   public isLoggedIn = false;
   public user: User;
 
-  publicKey = 'FLWPUBK_TEST-e05b305c48c395af32844477606c105a-X';
+  public paymentSucceeded: boolean;
+
+  publicKey = 'FLWPUBK_TEST-197102ed13258e20eecd0cf4096a1385-X';
   customerDetails = {
-    name: 'Demo Customer  Name',
+    name: 'Demo Customer Name',
     email: 'customer@mail.com',
     phone_number: '08100000000'
   };
@@ -47,6 +50,7 @@ import {PurchaseService} from '../services/purchase.service';
   constructor(
     private fb: FormBuilder,
     private router: Router,
+    private route: ActivatedRoute,
     private cartService: CartService,
     private authService: AuthService,
     private tokenStorage: TokenStorageService,
@@ -57,10 +61,11 @@ import {PurchaseService} from '../services/purchase.service';
   /*flutterwave methods*/
   makePaymentCallback(response: PaymentSuccessResponse): void {
     console.log('Pay', response);
-    this.flutterwave.closePaymentModal(5);
+    this.flutterwave.closePaymentModal(3);
     this.purchaseService.sendCartItems(JSON.stringify(this.cartItems))
       .subscribe(data => {
         console.log(`Send cartItems to admin >>>`, data);
+        this.router.navigate(['payment-success']);
       });
   }
 
@@ -75,6 +80,9 @@ import {PurchaseService} from '../services/purchase.service';
   /*flutterwave methods end*/
 
   ngOnInit() {
+    this.route.queryParams.subscribe(data => {
+      this.paymentSucceeded = data.paymentSucceeded === 'Y';
+    });
     this.createPaymentForm();
     this.reviewCartDetails();
     this.getUser();
@@ -92,7 +100,7 @@ import {PurchaseService} from '../services/purchase.service';
   getUser() {
     if (this.tokenStorage.getToken()) {
       this.isLoggedIn = true;
-      this.user = this.tokenStorage.getUser();
+      this.user = this.tokenStorage.getUser().user;
       this.patchUserDetails();
       this.customerDetails = {
         name: `${this.user.firstName} ${this.user.lastName}`,
@@ -109,7 +117,7 @@ import {PurchaseService} from '../services/purchase.service';
       firstName: this.user.firstName,
       lastName: this.user.lastName,
       email: this.user.email,
-      amount: this.totalPrice
+      amount: this.totalPrice + 1000
     });
   }
 

@@ -29,8 +29,10 @@ export class LoginComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    const params$ = this.route.queryParams
-      .subscribe(data => this.retUrl = data.retUrl);
+    this.route.queryParams
+      .subscribe(data => {
+        this.retUrl = data.retUrl;
+      });
     this.createLoginForm();
     if (this.tokenStorage.getToken()) {
       this.isLoggedIn = true;
@@ -54,8 +56,10 @@ export class LoginComponent implements OnInit {
         this.tokenStorage.saveUser(data);
         this.isLoginFailed = false;
         this.isLoggedIn = true;
+        this.user = this.tokenStorage.getUser().user;
         sessionStorage.setItem('reload', JSON.stringify(true));
-        this.router.navigate([`/${this.retUrl}`]/*, {queryParams: { search: ''}}*/);
+        const url = this.retUrl ? this.retUrl : 'search';
+        this.router.navigate([`/${url}`], {queryParams: { search: ''}});
       }, err => {
         this.errorMessage = err.error.message;
         this.isLoginFailed = true;

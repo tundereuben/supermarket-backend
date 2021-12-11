@@ -15,12 +15,22 @@ export class AuthGuardService implements CanActivate {
     private tokenService: TokenStorageService
   ) { }
 
-  // tslint:disable-next-line:max-line-length
-  canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-
+  canActivate(
+    route: ActivatedRouteSnapshot,
+    state: RouterStateSnapshot
+  ): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
     if (!this.tokenService.getToken()) {
       this.router.navigate(['login'], {
-        queryParams: { retUrl: route.url }
+        queryParams: { retUrl: route.url },
+      });
+
+      return false;
+    }
+
+    const user =  this.tokenService.getUser().user;
+    if (route.data.role && route.data.role.indexOf(user.role) === -1) {
+      this.router.navigate(['login'], {
+        queryParams: { retUrl: route.url },
       });
       return false;
     }

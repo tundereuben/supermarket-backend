@@ -23,7 +23,6 @@ export class SearchComponent implements OnInit {
 
   ngOnInit() {
     const reload = JSON.parse(sessionStorage.getItem('reload'));
-    console.log(`reload >>>`, reload);
     if (reload) {
       sessionStorage.setItem('reload', JSON.stringify(false));
       location.reload();
