@@ -50,102 +50,35 @@
         </div>
         <hr>
         <button (click)="gotoSearch()" type="submit" class="btn btn-primary my-3">Continue shopping</button>
-        <button type="submit" class="btn btn-outline-primary" style="float: right">Update user info</button>
+        <button routerLink="/user-details" type="submit" class="btn btn-outline-primary" style="float: right">
+          Update user info
+        </button>
       </div>
 
       <div class="top-area col-sm-4">
         <p class="text-primary fw-bold lead">Review Your Order</p>
-        <ng-container *ngIf="totalQuantity > 0">
-            <p>Total Price: {{ totalPrice | currency: 'N'  }}</p>
-            <p>Shipping: {{ shippingFee | currency: 'N' }}</p>
-            <p>You pay: {{ totalPrice + 1000 | currency: 'N' }}</p>
-          <div class="row">
-            <div class="col-sm-12">
-              <button (click)="checkout()" type="submit" class="btn btn-success my-3" style="width: 100%">Checkout</button>
-            </div>
+        <table *ngIf="totalQuantity > 0" class="table">
+          <tbody class="text-muted">
+          <tr>
+            <th scope="row">Total Price</th>
+            <td>{{ totalPrice | currency: 'N'  }}</td>
+          </tr>
+          <tr>
+            <th scope="row">Shipping</th>
+            <td>{{ shippingFee | currency: 'N' }}</td>
+          </tr>
+          <tr>
+            <th scope="row">You pay</th>
+            <td>{{ totalPrice + 1000 | currency: 'N' }}</td>
+          </tr>
+          </tbody>
+        </table>
+        <div class="row">
+          <div class="col-sm-12">
+            <button (click)="checkout()" type="submit" class="btn btn-success my-3" style="width: 100%">Checkout</button>
           </div>
-        </ng-container>
+        </div>
       </div>
-    </div>
-  </div>
-</section>
-
-<!-- Start Item Details -->
-<section class="item-details section">
-  <div class="container">
-    <div class="top-area col-md-12">
-      <form [formGroup]="checkoutFormGroup">
-
-        <fieldset class="border p-2 my-2">
-          <legend class="w-auto">Customer Details</legend>
-          <div formGroupName="customer">
-            <div class="row">
-              <div class="col">
-                <input formControlName="firstName" type="text" class="form-control" placeholder="First name" >
-              </div>
-              <div class="col">
-                <input formControlName="lastName" type="text" class="form-control" placeholder="Last name" >
-              </div>
-            </div>
-            <div class="row my-2">
-              <div class="col">
-                <input formControlName="phone" type="text" class="form-control" placeholder="Phone Number" >
-              </div>
-              <div class="col">
-                <input formControlName="email" type="text" class="form-control" placeholder="Email" >
-              </div>
-            </div>
-          </div>
-        </fieldset>
-
-        <fieldset class="border p-2 my-2">
-          <legend class="w-auto">Shipping Address</legend>
-          <div formGroupName="shippingAddress">
-            <div class="row">
-              <div class="col">
-                <input formControlName="country" type="text" placeholder="Country" class="form-control" >
-              </div>
-              <div class="col">
-                <input formControlName="state" type="text" placeholder="State" class="form-control">
-              </div>
-              <div class="col">
-                <input formControlName="city" type="text" placeholder="City" class="form-control">
-              </div>
-            </div>
-            <div class="row my-3">
-              <div class="col">
-                <input formControlName="street" type="text" placeholder="House address" class="form-control">
-              </div>
-            </div>
-          </div>
-        </fieldset>
-
-        <fieldset class="border p-2 my-2">
-          <legend class="w-auto">Billing Address</legend>
-          <div formGroupName="billingAddress" class="form-area">
-            <div class="mb-3" style="">
-              <input type="checkbox" (change)="copyShippingAddressToBillingAddress($event)">
-              <span class="m-lg-2"> Billing Address same as Shipping Address</span>
-            </div>
-            <div class="row">
-              <div class="col">
-                <input formControlName="country" type="text" placeholder="Country" class="form-control" >
-              </div>
-              <div class="col">
-                <input formControlName="state" type="text" placeholder="State" class="form-control">
-              </div>
-              <div class="col">
-                <input formControlName="city" type="text" placeholder="City" class="form-control">
-              </div>
-            </div>
-            <div class="row my-3">
-              <div class="col">
-                <input formControlName="street" type="text" placeholder="House address" class="form-control">
-              </div>
-            </div>
-          </div>
-        </fieldset>
-      </form>
     </div>
   </div>
 </section>

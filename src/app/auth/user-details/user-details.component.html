@@ -1,1 +1,80 @@
-<p>user-details works!</p>
+<!-- Start Item Details -->
+<section class="item-details section">
+  <div class="container">
+    <div class="top-area col-md-12">
+      <form [formGroup]="updateUserForm">
+
+        <fieldset class="border p-2 my-2">
+          <legend class="w-auto">Customer Details</legend>
+          <div formGroupName="customer">
+            <div class="row">
+              <div class="col">
+                <input formControlName="firstName" type="text" class="form-control" placeholder="First name" >
+              </div>
+              <div class="col">
+                <input formControlName="lastName" type="text" class="form-control" placeholder="Last name" >
+              </div>
+            </div>
+            <div class="row my-2">
+              <div class="col">
+                <input formControlName="phone" type="text" class="form-control" placeholder="Phone Number" >
+              </div>
+              <div class="col">
+                <input formControlName="email" type="text" class="form-control" placeholder="Email" >
+              </div>
+            </div>
+          </div>
+        </fieldset>
+
+        <fieldset class="border p-2 my-2">
+          <legend class="w-auto">Shipping Address</legend>
+          <div formGroupName="shippingAddress">
+            <div class="row">
+              <div class="col">
+                <input formControlName="country" type="text" placeholder="Country" class="form-control" >
+              </div>
+              <div class="col">
+                <input formControlName="state" type="text" placeholder="State" class="form-control">
+              </div>
+              <div class="col">
+                <input formControlName="city" type="text" placeholder="City" class="form-control">
+              </div>
+            </div>
+            <div class="row my-3">
+              <div class="col">
+                <input formControlName="street" type="text" placeholder="House address" class="form-control">
+              </div>
+            </div>
+          </div>
+        </fieldset>
+
+        <fieldset class="border p-2 my-2">
+          <legend class="w-auto">Billing Address</legend>
+          <div formGroupName="billingAddress" class="form-area">
+            <div class="mb-3" style="">
+              <input type="checkbox" (change)="copyShippingAddressToBillingAddress($event)">
+              <span class="m-lg-2"> Billing Address same as Shipping Address</span>
+            </div>
+            <div class="row">
+              <div class="col">
+                <input formControlName="country" type="text" placeholder="Country" class="form-control" >
+              </div>
+              <div class="col">
+                <input formControlName="state" type="text" placeholder="State" class="form-control">
+              </div>
+              <div class="col">
+                <input formControlName="city" type="text" placeholder="City" class="form-control">
+              </div>
+            </div>
+            <div class="row my-3">
+              <div class="col">
+                <input formControlName="street" type="text" placeholder="House address" class="form-control">
+              </div>
+            </div>
+          </div>
+          <button (click)="updateUser()" class="btn btn-success" style="float: right">Update user</button>
+        </fieldset>
+      </form>
+    </div>
+  </div>
+</section>

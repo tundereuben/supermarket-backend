@@ -14,6 +14,7 @@ import {CheckoutComponent} from './checkout/checkout.component';
 import {PaymentComponent} from './payment/payment.component';
 import {AuthGuardService} from './services/auth-guard.service';
 import {PaymentSuccessfulComponent} from './payment/payment-successful/payment-successful.component';
+import {UserDetailsComponent} from './auth/user-details/user-details.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -23,7 +24,7 @@ const routes: Routes = [
   { path: 'cart-details', component: CartDetailsComponent },
   { path: 'search', component: SearchComponent },
   { path: 'checkout', component: CheckoutComponent, canActivate: [AuthGuardService] },
-  { path: 'user-details', component: CheckoutComponent, canActivate: [AuthGuardService] },
+  { path: 'user-details', component: UserDetailsComponent, canActivate: [AuthGuardService] },
   { path: 'payment', component: PaymentComponent, canActivate: [AuthGuardService]},
   { path: 'payment-success', component: PaymentSuccessfulComponent, canActivate: [AuthGuardService]},
 

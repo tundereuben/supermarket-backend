@@ -117,7 +117,7 @@ import {PurchaseService} from '../services/purchase.service';
       firstName: this.user.firstName,
       lastName: this.user.lastName,
       email: this.user.email,
-      amount: this.totalPrice + 1000
+      amount: this.totalPrice + this.shippingFee
     });
   }
 
@@ -129,7 +129,7 @@ import {PurchaseService} from '../services/purchase.service';
 
     // subscribe to cartService.totalPrice
     this.cartService.totalPrice.asObservable()
-      .subscribe(totalPrice => this.totalPrice = totalPrice
+      .subscribe(totalPrice => this.totalPrice = totalPrice + this.shippingFee
       );
 
     this.cartItems = this.cartService.cartItems;
