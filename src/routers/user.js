@@ -9,7 +9,6 @@ router.post('/users', async (req, res) => {
 
     try {
         await user.save();
-        console.log(user)
         const token = await user.generateAuthToken();
         sendWelcomeEmail(user.email, user.firstName, user._id);
         res.status(201).send({ user, token });
@@ -74,7 +73,7 @@ router.patch('/users/me', auth, async (req, res) => {
 
         res.send(req.user)
     } catch (e) {
-        
+        res.status(500).send()
     }
 })
 
