@@ -264,7 +264,7 @@ const sendOrderEmail = (email, order) => {
                 </div>
                 <div class="message">
                     <h3>Order complete</h3>
-                    <p>Hello <span class="bold">[first_name]</span>, thanks for your order.</p>
+                    <p>Hello <span class="bold">${order.user.firstName}</span>, thanks for your order.</p>
         
                     <div class="order-summary" style="width: 100%">
                         <table>
