@@ -270,8 +270,8 @@ const sendOrderEmail = (email, order) => {
                         <table>
                             <tr>
                                 <th>Item</th>
-                                <th>Qty</th>
                                 <th>Unit price</th>
+                                <th>Qty</th>
                                 <th>Subtotal</th>
                             </tr>
                             ${cartDisplay}
@@ -294,7 +294,7 @@ const sendOrderEmail = (email, order) => {
                                 <td>${order.user.phone}</td>
                             </tr>
                             <tr>
-                                <th>Adress</th>
+                                <th>Address</th>
                                 <td>${order.user.shippingAddress.street}, ${order.user.shippingAddress.city}, ${order.user.shippingAddress.state}</td>
                             </tr>
                         </table>
