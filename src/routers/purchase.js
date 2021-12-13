@@ -83,12 +83,12 @@ router.delete('/purchase/:id', auth, async (req, res) => {
 });
 
 router.post('/placeOrder', auth, async (req, res) => {
-    const cartItems = req.body;
+    const orderSummary = req.body;
     const user = req.user
 
     try {
-        sendOrderEmail( user.email, cartItems);
-        res.status(201).send({ user, cartItems });
+        sendOrderEmail( user.email, orderSummary);
+        res.status(201).send({ user, orderSummary });
     } catch (e) {
         res.status(400).send(e);
     }
